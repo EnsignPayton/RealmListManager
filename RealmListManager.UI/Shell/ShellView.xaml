@@ -1,0 +1,57 @@
+﻿<Window x:Class="RealmListManager.UI.Shell.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:RealmListManager.UI.Shell"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance shell:ShellViewModel}"
+        Title="Realmlist Manager"
+        MinWidth="640" MinHeight="480"
+        Width="800" Height="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0"
+              Background="DarkCyan">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Install Locations -->
+            <ItemsControl Grid.Row="0"
+                          ItemsSource="{Binding Locations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="48"
+                              Margin="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="56"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse Grid.Column="0" Fill="Coral" Width="48" Height="48"/>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Path}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button x:Name="AddLocation"
+                    Grid.Row="1"
+                    Content="Add Location"
+                    Style="{StaticResource AddLocationButton}"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+        </Grid>
+    </Grid>
+</Window>
