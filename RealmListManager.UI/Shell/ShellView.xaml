@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0"
-              Background="DarkCyan">
+              Background="LightGray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -34,7 +34,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Ellipse Grid.Column="0" Fill="Coral" Width="48" Height="48"/>
+                            <Ellipse Grid.Column="0" Fill="Black" Width="48" Height="48"/>
 
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="{Binding Name}"/>

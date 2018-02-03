@@ -1,15 +1,24 @@
 ﻿using System.Collections.ObjectModel;
 using Caliburn.Micro;
+using RealmListManager.UI.Dialogs;
 using RealmListManager.UI.Models;
 
 namespace RealmListManager.UI.Shell
 {
     public class ShellViewModel : Conductor<IScreen>
     {
+        #region Fields
+
+        private IWindowManager _windowManager;
+
+        #endregion
+
         #region Constructor
 
-        public ShellViewModel()
+        public ShellViewModel(IWindowManager windowManager)
         {
+            _windowManager = windowManager;
+
             Locations = new ObservableCollection<LocationModel>();
         }
 
@@ -25,24 +34,11 @@ namespace RealmListManager.UI.Shell
 
         public void AddLocation()
         {
-            var rl1 = new RealmlistModel
-            {
-                Name = "Foo",
-                Url = "Bar",
-                ImagePath = "Baz"
-            };
+            var newLocationViewModel = IoC.Get<NewLocationViewModel>();
+            _windowManager.ShowDialog(newLocationViewModel);
 
-            var loc1 = new LocationModel()
-            {
-                Name = "Foo",
-                Path = "Bar",
-                ImagePath = "Baz",
-                Realmlists = new ObservableCollection<RealmlistModel>()
-            };
-
-            loc1.Realmlists.Add(rl1);
-
-            Locations.Add(loc1);
+            if (newLocationViewModel.Result == false) return;
+            Locations.Add(newLocationViewModel.NewLocation);
         }
 
         #endregion
