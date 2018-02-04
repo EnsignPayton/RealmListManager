@@ -8,15 +8,30 @@
         d:DataContext="{d:DesignInstance shell:ShellViewModel}"
         Title="Realmlist Manager"
         MinWidth="640" MinHeight="480"
-        Width="800" Height="600">
+        Width="800" Height="600"
+        SnapsToDevicePixels="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AddLocationButton"
+                   TargetType="Button"
+                   BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="240"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0"
-              Background="LightGray">
+              Background="{StaticResource PrimaryBrush}">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="2" Direction="0" Opacity="0.5"/>
+            </Grid.Effect>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -24,7 +39,8 @@
 
             <!-- Install Locations -->
             <ItemsControl Grid.Row="0"
-                          ItemsSource="{Binding Locations}">
+                          ItemsSource="{Binding Locations}"
+                          Focusable="False">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Height="48"

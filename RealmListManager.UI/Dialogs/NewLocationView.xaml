@@ -4,30 +4,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dialogs="clr-namespace:RealmListManager.UI.Dialogs"
+        xmlns:controls="clr-namespace:RealmListManager.UI.Controls"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance dialogs:NewLocationViewModel}"
         Title="Add New Location"
-        Width="640" Height="360"
+        Width="480" Height="270"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         FocusManager.FocusedElement="{Binding ElementName=NameTextBox}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NewLocationButton"
+                   TargetType="Button"
+                   BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="8"/>
+                <Setter Property="Height" Value="40"/>
+            </Style>
+
+            <Style x:Key="NewLocationHintTextBox"
+                   TargetType="controls:HintTextBox"
+                   BasedOn="{StaticResource {x:Type controls:HintTextBox}}">
+                <Setter Property="Height" Value="32"/>
+                <Setter Property="Margin" Value="8"/>
+                <Setter Property="Padding" Value="4,0"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBox x:Name="NameTextBox"
-                     Text="{Binding NewLocation.Name}"
-                     Style="{StaticResource NewLocationTextBox}"/>
-            <TextBox Text="{Binding NewLocation.Path}"
-                     Style="{StaticResource NewLocationTextBox}"/>
-            <TextBox Text="{Binding NewLocation.ImagePath}"
-                     Style="{StaticResource NewLocationTextBox}"/>
+        <StackPanel Grid.Row="0"
+                    Margin="4">
+            <controls:HintTextBox x:Name="NameTextBox"
+                                  HintText="Name"
+                                  Text="{Binding NewLocation.Name, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource NewLocationHintTextBox}"/>
+            <controls:HintTextBox HintText="Install Path"
+                                  Text="{Binding NewLocation.Path, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource NewLocationHintTextBox}"/>
+            <controls:HintTextBox HintText="Image Path"
+                                  Text="{Binding NewLocation.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource NewLocationHintTextBox}"/>
         </StackPanel>
-        
-        <Grid Grid.Row="1">
+
+        <Grid Grid.Row="1"
+                Background="{StaticResource PrimaryBrush}">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="1" Direction="90" Opacity="0.5"/>
+            </Grid.Effect>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -36,11 +64,11 @@
             <Button x:Name="Save"
                     Grid.Column="0"
                     Content="Save"
-                    Style="{StaticResource AddLocationButton}"/>
+                    Style="{StaticResource NewLocationButton}"/>
             <Button x:Name="Cancel"
                     Grid.Column="1"
                     Content="Cancel"
-                    Style="{StaticResource AddLocationButton}"/>
+                    Style="{StaticResource NewLocationButton}"/>
         </Grid>
     </Grid>
 </Window>

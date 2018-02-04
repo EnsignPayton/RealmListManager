@@ -10,6 +10,7 @@ namespace RealmListManager.UI.Dialogs
         public NewLocationViewModel()
         {
             NewLocation = new LocationModel();
+            NewLocation.PropertyChanged += NewLocation_PropertyChanged;
         }
 
         #endregion
@@ -20,19 +21,15 @@ namespace RealmListManager.UI.Dialogs
 
         public bool Result { get; private set; }
 
+        public bool CanSave => !string.IsNullOrWhiteSpace(NewLocation.Name) &&
+                               !string.IsNullOrWhiteSpace(NewLocation.Path);
+
         #endregion
 
         #region Actions
 
         public void Save()
         {
-            if (string.IsNullOrWhiteSpace(NewLocation.Name) ||
-                string.IsNullOrWhiteSpace(NewLocation.Path))
-            {
-                // Must have those two defined
-                return;
-            }
-
             Result = true;
             TryClose();
         }
@@ -41,6 +38,15 @@ namespace RealmListManager.UI.Dialogs
         {
             Result = false;
             TryClose();
+        }
+
+        #endregion
+
+        #region Events
+
+        private void NewLocation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            NotifyOfPropertyChange(() => CanSave);
         }
 
         #endregion

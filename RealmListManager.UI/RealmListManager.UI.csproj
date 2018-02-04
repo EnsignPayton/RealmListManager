@@ -94,6 +94,7 @@
     <Compile Include="Dialogs\NewLocationViewModel.cs">
       <DependentUpon>NewLocationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HintTextBox.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\RealmlistModel.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
@@ -140,7 +141,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles.xaml">
+    <Page Include="Styles\Assets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
