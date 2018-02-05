@@ -31,8 +31,6 @@ namespace RealmListManager.UI.Location
 
         public LocationModel Location { get; set; }
 
-        public bool CanPlay => SelectedRealmlist != null;
-
         public RealmlistModel SelectedRealmlist
         {
             get => _selectedRealmlist;
@@ -41,7 +39,6 @@ namespace RealmListManager.UI.Location
                 if (_selectedRealmlist == value) return;
                 _selectedRealmlist = value;
                 NotifyOfPropertyChange();
-                NotifyOfPropertyChange(() => CanPlay);
             }
         }
 
@@ -68,7 +65,7 @@ namespace RealmListManager.UI.Location
             if (realmlist == null)
                 realmlist = SelectedRealmlist;
 
-            // Start the game ... ?
+            FileUtilities.StartLocation(Location.Path);
         }
 
         #endregion
@@ -80,7 +77,8 @@ namespace RealmListManager.UI.Location
             var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id);
             foreach (var realmlist in savedRealmlists)
             {
-                Location.Realmlists.Add(new RealmlistModel(realmlist));
+                if (Location.Realmlists.All(x => x.DataModel.Id != realmlist.Id))
+                    Location.Realmlists.Add(new RealmlistModel(realmlist));
             }
             base.OnInitialize();
         }

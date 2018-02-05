@@ -104,7 +104,7 @@
     <Compile Include="Core\Utilities\DbConnectionManager.cs" />
     <Compile Include="Core\Utilities\DbConnectionProvider.cs" />
     <Compile Include="Core\Utilities\ImageUtilities.cs" />
-    <Compile Include="Core\Utilities\PathUtilities.cs" />
+    <Compile Include="Core\Utilities\FileUtilities.cs" />
     <Compile Include="Dialogs\NewLocationView.xaml.cs">
       <DependentUpon>NewLocationView.xaml</DependentUpon>
     </Compile>

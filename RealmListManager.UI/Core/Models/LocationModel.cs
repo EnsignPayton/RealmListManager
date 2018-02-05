@@ -48,7 +48,7 @@ namespace RealmListManager.UI.Core.Models
 
         public Entities.Location DataModel { get; }
 
-        public bool PathValid => Path == null || PathUtilities.IsWowFolder(Path);
+        public bool PathValid => Path == null || FileUtilities.IsWowFolder(Path);
 
         public bool ImagePathValid => ImagePath == null || File.Exists(ImagePath);
 
