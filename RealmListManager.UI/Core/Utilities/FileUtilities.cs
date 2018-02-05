@@ -7,9 +7,6 @@ namespace RealmListManager.UI.Core.Utilities
 {
     public static class FileUtilities
     {
-        private const string WowExecutable = "Wow.exe";
-        private const string RealmlistWtf = "realmlist.wtf";
-
         /// <summary>
         /// Determines if a path is a World of Warcraft installation directory.
         /// </summary>
@@ -20,7 +17,7 @@ namespace RealmListManager.UI.Core.Utilities
             if (!Directory.Exists(path)) return false;
 
             var info = new DirectoryInfo(path);
-            return info.GetFiles(WowExecutable).Any();
+            return info.GetFiles("Wow.exe").Any();
         }
 
         /// <summary>
@@ -29,7 +26,7 @@ namespace RealmListManager.UI.Core.Utilities
         /// <param name="path">Location Path</param>
         public static bool IsLocationRunning(string path)
         {
-            var wowProcesses = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(WowExecutable));
+            var wowProcesses = Process.GetProcessesByName("Wow");
 
             return wowProcesses.FirstOrDefault(x => x.MainModule.FileName.StartsWith(path,
                 StringComparison.OrdinalIgnoreCase)) != null;
@@ -42,12 +39,12 @@ namespace RealmListManager.UI.Core.Utilities
         /// <returns>Success Status</returns>
         public static bool BackupRealmlist(string path)
         {
-            var realmlistWtf = Path.Combine(path, RealmlistWtf);
-            var realmlistBak = Path.GetFileNameWithoutExtension(realmlistWtf) + ".bak";
+            var realmlistWtf = GetRealmlistFile(path);
+            var realmlistBak = Path.Combine(Path.GetDirectoryName(realmlistWtf), Path.GetFileNameWithoutExtension(realmlistWtf) + ".bak");
 
             if (!File.Exists(realmlistWtf)) return false;
 
-            File.Copy(realmlistWtf, realmlistBak);
+            File.Copy(realmlistWtf, realmlistBak, true);
 
             return true;
         }
@@ -59,7 +56,7 @@ namespace RealmListManager.UI.Core.Utilities
         /// <returns>Success Status</returns>
         public static bool RestoreRealmlist(string path)
         {
-            var realmlistWtf = Path.Combine(path, RealmlistWtf);
+            var realmlistWtf = GetRealmlistFile(path);
             var realmlistBak = Path.GetFileNameWithoutExtension(realmlistWtf) + ".bak";
 
             if (!File.Exists(realmlistBak)) return false;
@@ -70,12 +67,57 @@ namespace RealmListManager.UI.Core.Utilities
         }
 
         /// <summary>
-        /// Starts an instance of the current location with the current realmlist.
+        /// Replaces the current realmlist.
         /// </summary>
         /// <param name="path">Location Path</param>
-        public static void StartLocation(string path)
+        /// <param name="realmlistUrl">Realmlist URL</param>
+        public static void ReplaceRealmlist(string path, string realmlistUrl)
         {
-            Process.Start(Path.Combine(path, WowExecutable));
+            var realmlistWtf = GetRealmlistFile(path);
+            var realmlistData = File.ReadAllLines(realmlistWtf);
+
+            for (int i = 0; i < realmlistData.Length; i++)
+            {
+                if (!realmlistData[i].StartsWith("set realmlist")) continue;
+                realmlistData[i] = $"set realmlist {realmlistUrl}";
+            }
+
+            File.WriteAllLines(realmlistWtf, realmlistData);
+        }
+
+        /// <summary>
+        /// Starts an instance of the current location. If a realmlist is specified, uses it.
+        /// </summary>
+        /// <param name="path">Location Path</param>
+        /// <param name="realmlistUrl">Realmlist URL</param>
+        public static void StartLocation(string path, string realmlistUrl = null)
+        {
+            if (realmlistUrl != null)
+            {
+                BackupRealmlist(path);
+                ReplaceRealmlist(path, realmlistUrl);
+            }
+
+            Process.Start(Path.Combine(path, "Wow.exe"));
+        }
+
+        private static string GetRealmlistFile(string path)
+        {
+            // Prior to 3.0.2, realmlist.wtf should be located in the root directory
+            var oldLocation = Path.Combine(path, "realmlist.wtf");
+            if (File.Exists(oldLocation)) return oldLocation;
+
+            // Afterward, it should be located in a subdirectory
+            var subdirs = Directory.GetDirectories(Path.Combine(path, "Data"));
+
+            foreach (var subdir in subdirs)
+            {
+                var newLocation = Path.Combine(subdir, "realmlist.wtf");
+                if (File.Exists(newLocation)) return newLocation;
+            }
+
+            // If it's in neither place, then we're out of luck
+            return null;
         }
     }
 }

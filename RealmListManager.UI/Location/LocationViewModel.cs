@@ -46,6 +46,9 @@ namespace RealmListManager.UI.Location
 
         #region Actions
 
+        /// <summary>
+        /// Opens a dialog to create a new realmlist.
+        /// </summary>
         public void AddRealmlist()
         {
             var newRealmlistViewModel = IoC.Get<NewRealmlistViewModel>();
@@ -60,12 +63,13 @@ namespace RealmListManager.UI.Location
                 SelectedRealmlist = Location.Realmlists.First();
         }
 
+        /// <summary>
+        /// Starts a location.
+        /// </summary>
+        /// <param name="realmlist">Optional realmlist to substitute.</param>
         public void Play(RealmlistModel realmlist = null)
         {
-            if (realmlist == null)
-                realmlist = SelectedRealmlist;
-
-            FileUtilities.StartLocation(Location.Path);
+            FileUtilities.StartLocation(Location.Path, realmlist?.Url);
         }
 
         #endregion

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:location="clr-namespace:RealmListManager.UI.Location"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance location:LocationViewModel}"
              d:DesignWidth="560" d:DesignHeight="600">
@@ -109,7 +110,8 @@
                                 Height="36"
                                 Padding="12,0"
                                 SnapsToDevicePixels="True"
-                                VerticalAlignment="Center"/>
+                                VerticalAlignment="Center"
+                                cal:Message.Attach="[Event Click] = [Action Play($dataContext)]"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
