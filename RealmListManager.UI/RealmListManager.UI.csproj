@@ -112,6 +112,12 @@
       <DependentUpon>NewLocationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\HintTextBox.cs" />
+    <Compile Include="Dialogs\NewRealmlistView.xaml.cs">
+      <DependentUpon>NewRealmlistView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewRealmlistViewModel.cs">
+      <DependentUpon>NewRealmlistView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Location\LocationView.xaml.cs">
       <DependentUpon>LocationView.xaml</DependentUpon>
     </Compile>
@@ -157,6 +163,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialogs\NewLocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\NewRealmlistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

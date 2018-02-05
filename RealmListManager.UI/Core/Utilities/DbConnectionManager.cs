@@ -29,7 +29,7 @@ namespace RealmListManager.UI.Core.Utilities
                                   "[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY," +
                                   "[Name] VARCHAR NOT NULL," +
                                   "[Url] VARCHAR NOT NULL," +
-                                  "[Image] BLOB NOT NULL," +
+                                  "[Image] BLOB NULL," +
                                   "[LocationId] UNIQUEIDENTIFIER NOT NULL," +
                                   "FOREIGN KEY ([LocationId]) REFERENCES [Location] ([Id]) ON DELETE NO ACTION ON UPDATE NO ACTION" +
                                   ");");
@@ -44,6 +44,19 @@ namespace RealmListManager.UI.Core.Utilities
                     Name = entity.Name,
                     Path = entity.Path,
                     Image = entity.Image
+                });
+        }
+
+        public void InsertRealmlist(Entities.Realmlist entity, Guid locationId)
+        {
+            _dbConnection.Execute("INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @LocationId)",
+                new
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Url = entity.Url,
+                    Image = entity.Image,
+                    LocationId = locationId
                 });
         }
 

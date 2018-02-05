@@ -25,6 +25,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Ellipse Grid.Column="0" Width="64" Height="64" Margin="0,0,12,0">
@@ -42,12 +43,22 @@
                                FontSize="12"
                                FontStyle="Italic"/>
                 </StackPanel>
+
+                <Button Grid.Column="2"
+                        x:Name="Play"
+                        Content="Play"
+                        Height="40"
+                        Padding="16,0"
+                        FontSize="16"
+                        SnapsToDevicePixels="True"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource PrimaryBrush700}"/>
             </Grid>
         </Border>
 
         <!-- Realmlist Toolbar -->
         <Grid Grid.Row="1"
-              Margin="24">
+              Margin="24,24,24,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -60,10 +71,48 @@
                        Foreground="{StaticResource PrimaryBrush700}"/>
 
             <Button Grid.Column="1"
+                    x:Name="AddRealmlist"
                     Margin="12,0"
                     Padding="4">
                 <Rectangle Fill="{StaticResource PlusSignBrush}" Width="20" Height="20"/>
             </Button>
         </Grid>
+        
+        <!-- Realmlist List -->
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding Location.Realmlists}"
+                 SelectedItem="{Binding SelectedRealmlist}"
+                 Margin="16,8,16,16"
+                 Focusable="False">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="{Binding Name}"
+                                       Margin="0,0,0,4"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Foreground="Black"/>
+                            <TextBlock Text="{Binding Url}"
+                                       FontSize="12"
+                                       FontStyle="Italic"
+                                       Foreground="Black"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                Content="Play"
+                                Height="36"
+                                Padding="12,0"
+                                SnapsToDevicePixels="True"
+                                VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Caliburn.Micro;
+using RealmListManager.UI.Core.Entities;
 using RealmListManager.UI.Core.Utilities;
 
 namespace RealmListManager.UI.Core.Models
@@ -122,6 +121,9 @@ namespace RealmListManager.UI.Core.Models
         {
             foreach (var realmlist in Realmlists)
             {
+                if (DataModel.Realmlists == null)
+                    DataModel.Realmlists = new List<Realmlist>();
+
                 if (DataModel.Realmlists.Contains(realmlist.DataModel))
                     continue;
 

@@ -1,13 +1,13 @@
-﻿<Window x:Class="RealmListManager.UI.Dialogs.NewLocationView"
+﻿<Window x:Class="RealmListManager.UI.Dialogs.NewRealmlistView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:dialogs="clr-namespace:RealmListManager.UI.Dialogs"
         xmlns:controls="clr-namespace:RealmListManager.UI.Controls"
+        xmlns:dialogs="clr-namespace:RealmListManager.UI.Dialogs"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance dialogs:NewLocationViewModel}"
-        Title="Add New Location"
+        d:DataContext="{d:DesignInstance dialogs:NewRealmlistViewModel}"
+        Title="Add New Realmlist"
         Width="480" Height="270"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
@@ -22,7 +22,11 @@
                     Margin="4">
             <controls:HintTextBox x:Name="NameTextBox"
                                   HintText="Name"
-                                  Text="{Binding NewLocation.Name, UpdateSourceTrigger=PropertyChanged}"
+                                  Text="{Binding NewRealmlist.Name, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource DialogHintTextBox}"/>
+
+            <controls:HintTextBox HintText="Realmlist URL"
+                                  Text="{Binding NewRealmlist.Url, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource DialogHintTextBox}"/>
 
             <Grid>
@@ -32,27 +36,9 @@
                 </Grid.ColumnDefinitions>
 
                 <controls:HintTextBox Grid.Column="0"
-                                      HintText="Install Path"
-                                      Text="{Binding NewLocation.Path, UpdateSourceTrigger=PropertyChanged}"
-                                      IsError="{Binding NewLocation.PathValid, Converter={StaticResource NegatedBooleanConverter}}"
-                                      Style="{StaticResource DialogHintTextBox}"/>
-
-                <Button x:Name="BrowsePath"
-                        Grid.Column="1"
-                        Content="Browse"
-                        Style="{StaticResource DialogBrowseButton}"/>
-            </Grid>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <controls:HintTextBox Grid.Column="0"
                                       HintText="Image Path"
-                                      Text="{Binding NewLocation.ImagePath, UpdateSourceTrigger=PropertyChanged}"
-                                      IsError="{Binding NewLocation.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Text="{Binding NewRealmlist.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding NewRealmlist.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
                                       Style="{StaticResource DialogHintTextBox}"/>
 
                 <Button x:Name="BrowseImagePath"
@@ -63,7 +49,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1"
-                Background="{StaticResource PrimaryBrush}">
+              Background="{StaticResource PrimaryBrush}">
             <Grid.Effect>
                 <DropShadowEffect ShadowDepth="1" Direction="90" Opacity="0.5"/>
             </Grid.Effect>
