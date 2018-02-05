@@ -1,10 +1,12 @@
 ﻿<Application x:Class="RealmListManager.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RealmListManager.UI">
+             xmlns:local="clr-namespace:RealmListManager.UI"
+             xmlns:converters="clr-namespace:RealmListManager.UI.Core.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:NegatedBooleanConverter x:Key="NegatedBooleanConverter"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>

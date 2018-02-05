@@ -21,6 +21,13 @@
                 <Setter Property="Height" Value="40"/>
             </Style>
 
+            <Style x:Key="BrowseButton"
+                   TargetType="Button"
+                   BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="8"/>
+                <Setter Property="Padding" Value="8"/>
+            </Style>
+
             <Style x:Key="NewLocationHintTextBox"
                    TargetType="controls:HintTextBox"
                    BasedOn="{StaticResource {x:Type controls:HintTextBox}}">
@@ -43,12 +50,41 @@
                                   HintText="Name"
                                   Text="{Binding NewLocation.Name, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource NewLocationHintTextBox}"/>
-            <controls:HintTextBox HintText="Install Path"
-                                  Text="{Binding NewLocation.Path, UpdateSourceTrigger=PropertyChanged}"
-                                  Style="{StaticResource NewLocationHintTextBox}"/>
-            <controls:HintTextBox HintText="Image Path"
-                                  Text="{Binding NewLocation.ImagePath, UpdateSourceTrigger=PropertyChanged}"
-                                  Style="{StaticResource NewLocationHintTextBox}"/>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:HintTextBox Grid.Column="0"
+                                      HintText="Install Path"
+                                      Text="{Binding NewLocation.Path, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding NewLocation.PathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Style="{StaticResource NewLocationHintTextBox}"/>
+
+                <Button x:Name="BrowsePath"
+                        Grid.Column="1"
+                        Content="Browse"
+                        Style="{StaticResource BrowseButton}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <controls:HintTextBox Grid.Column="0"
+                                      HintText="Image Path"
+                                      Text="{Binding NewLocation.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding NewLocation.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Style="{StaticResource NewLocationHintTextBox}"/>
+
+                <Button x:Name="BrowseImagePath"
+                        Grid.Column="1"
+                        Content="Browse"
+                        Style="{StaticResource BrowseButton}"/>
+            </Grid>
         </StackPanel>
 
         <Grid Grid.Row="1"

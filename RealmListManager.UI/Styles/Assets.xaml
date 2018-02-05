@@ -2,5 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!-- Application Color Scheme -->
     <Brush x:Key="PrimaryBrush">#607D8B</Brush>
+    <Brush x:Key="PrimaryBrush700">#455A64</Brush>
+    <Brush x:Key="PrimaryBrush300">#90A4AE</Brush>
+
     <Brush x:Key="SecondaryBrush">#4CAF50</Brush>
+    <Brush x:Key="SecondaryBrush700">#388E3C</Brush>
+    <Brush x:Key="SecondaryBrush300">#81C784</Brush>
+    
+    <DrawingBrush x:Key="PlusSignBrush" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="White" Geometry="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
 </ResourceDictionary>

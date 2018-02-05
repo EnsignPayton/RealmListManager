@@ -1,5 +1,7 @@
-﻿using Caliburn.Micro;
-using RealmListManager.UI.Models;
+﻿using System.Windows;
+using Caliburn.Micro;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using RealmListManager.UI.Core.Models;
 
 namespace RealmListManager.UI.Dialogs
 {
@@ -27,6 +29,30 @@ namespace RealmListManager.UI.Dialogs
         #endregion
 
         #region Actions
+
+        public void BrowsePath()
+        {
+            var dialog = new CommonOpenFileDialog {IsFolderPicker = true};
+
+            var result = dialog.ShowDialog(GetView() as Window);
+
+            if (result != CommonFileDialogResult.Ok) return;
+
+            NewLocation.Path = dialog.FileName;
+        }
+
+        public void BrowseImagePath()
+        {
+            var dialog = new CommonOpenFileDialog();
+            dialog.Filters.Add(new CommonFileDialogFilter("Image files", "*.png;*.jpg"));
+            dialog.Filters.Add(new CommonFileDialogFilter("Executable files", "*.exe"));
+
+            var result = dialog.ShowDialog(GetView() as Window);
+
+            if (result != CommonFileDialogResult.Ok) return;
+
+            NewLocation.ImagePath = dialog.FileName;
+        }
 
         public void Save()
         {
