@@ -18,7 +18,7 @@
         <!-- Location Info Header -->
         <Border Grid.Row="0"
                 Background="{StaticResource SecondaryBrush}"
-                Padding="24">
+                Padding="24,24,29,24">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
             </Border.Effect>
@@ -45,15 +45,26 @@
                                FontStyle="Italic"/>
                 </StackPanel>
 
-                <Button Grid.Column="2"
-                        x:Name="Play"
-                        Content="Play"
-                        Height="40"
-                        Padding="16,0"
-                        FontSize="16"
-                        SnapsToDevicePixels="True"
-                        VerticalAlignment="Center"
-                        Background="{StaticResource PrimaryBrush700}"/>
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal">
+                    <Button x:Name="DeleteLocation"
+                            Height="36"
+                            Width="36"
+                            Margin="0,0,8,0"
+                            ToolTip="{StaticResource ToolTip_DeleteLocation}"
+                            Background="{StaticResource PrimaryBrush}">
+                        <Rectangle Fill="{StaticResource CrossBrush}" Width="16" Height="16"/>
+                    </Button>
+
+                    <Button x:Name="Play"
+                            Content="Play"
+                            Height="36"
+                            Padding="12,0"
+                            SnapsToDevicePixels="True"
+                            VerticalAlignment="Center"
+                            ToolTip="{StaticResource ToolTip_PlayLocation}"
+                            Background="{StaticResource PrimaryBrush}"/>
+                </StackPanel>
             </Grid>
         </Border>
 
@@ -69,22 +80,26 @@
             <TextBlock Grid.Column="0"
                        Text="Realmlists"
                        FontSize="24"
+                       VerticalAlignment="Bottom"
                        Foreground="{StaticResource PrimaryBrush700}"/>
 
             <Button Grid.Column="1"
                     x:Name="AddRealmlist"
                     Margin="12,0"
-                    Padding="4">
-                <Rectangle Fill="{StaticResource PlusSignBrush}" Width="20" Height="20"/>
+                    Height="32"
+                    Width="32"
+                    ToolTip="{StaticResource ToolTip_AddRealmlist}">
+                <Rectangle Fill="{StaticResource PlusSignBrush}" Width="16" Height="16"/>
             </Button>
         </Grid>
         
         <!-- Realmlist List -->
-        <ListBox Grid.Row="2"
-                 ItemsSource="{Binding Location.Realmlists}"
-                 SelectedItem="{Binding SelectedRealmlist}"
-                 Margin="16,8,16,16"
-                 Focusable="False">
+        <ItemsControl Grid.Row="2"
+                      ItemsSource="{Binding Location.Realmlists}"
+                      ScrollViewer.CanContentScroll="False"
+                      Padding="16,0,0,16"
+                      Focusable="False"
+                      Style="{StaticResource ScrollSaveItemsControl}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="8">
@@ -105,16 +120,27 @@
                                        Foreground="Black"/>
                         </StackPanel>
 
-                        <Button Grid.Column="1"
-                                Content="Play"
-                                Height="36"
-                                Padding="12,0"
-                                SnapsToDevicePixels="True"
-                                VerticalAlignment="Center"
-                                cal:Message.Attach="[Event Click] = [Action Play($dataContext)]"/>
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal">
+                            <Button Height="36"
+                                    Width="36"
+                                    Margin="0,0,8,0"
+                                    ToolTip="{StaticResource ToolTip_DeleteRealmlist}"
+                                    cal:Message.Attach="[Event Click] = [Action DeleteRealmlist($dataContext)]">
+                                <Rectangle Fill="{StaticResource CrossBrush}" Width="16" Height="16"/>
+                            </Button>
+
+                            <Button Content="Play"
+                                    Height="36"
+                                    Padding="12,0"
+                                    SnapsToDevicePixels="True"
+                                    VerticalAlignment="Center"
+                                    ToolTip="{StaticResource ToolTip_PlayRealmlist}"
+                                    cal:Message.Attach="[Event Click] = [Action Play($dataContext)]"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ListBox>
+        </ItemsControl>
     </Grid>
 </UserControl>

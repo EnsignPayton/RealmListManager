@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
+using RealmListManager.UI.Shell;
 
 namespace RealmListManager.UI.Location
 {
@@ -12,7 +14,6 @@ namespace RealmListManager.UI.Location
 
         private readonly IWindowManager _windowManager;
         private readonly DbConnectionManager _connectionManager;
-        private RealmlistModel _selectedRealmlist;
 
         #endregion
 
@@ -31,17 +32,6 @@ namespace RealmListManager.UI.Location
 
         public LocationModel Location { get; set; }
 
-        public RealmlistModel SelectedRealmlist
-        {
-            get => _selectedRealmlist;
-            set
-            {
-                if (_selectedRealmlist == value) return;
-                _selectedRealmlist = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
         #endregion
 
         #region Actions
@@ -58,9 +48,6 @@ namespace RealmListManager.UI.Location
             Location.Realmlists.Add(newRealmlistViewModel.NewRealmlist);
 
             _connectionManager.InsertRealmlist(newRealmlistViewModel.NewRealmlist.DataModel, Location.DataModel.Id);
-
-            if (Location.Realmlists.Count == 1)
-                SelectedRealmlist = Location.Realmlists.First();
         }
 
         /// <summary>
@@ -70,6 +57,37 @@ namespace RealmListManager.UI.Location
         public void Play(RealmlistModel realmlist = null)
         {
             FileUtilities.StartLocation(Location.Path, realmlist?.Url);
+        }
+
+        /// <summary>
+        /// Deletes the current location.
+        /// </summary>
+        public void DeleteLocation()
+        {
+            var result = MessageBox.Show("Foo", "Bar", MessageBoxButton.OKCancel);
+            if (result != MessageBoxResult.OK) return;
+
+            // Delete from the database
+            _connectionManager.DeleteLocation(Location.DataModel.Id);
+
+            // Deactivate and dispose this screen
+            var shellViewModel = IoC.Get<ShellViewModel>();
+            shellViewModel.DeleteLocation(Location);
+        }
+
+        /// <summary>
+        /// Deletes a realmlist.
+        /// </summary>
+        /// <param name="realmlist">Realmlist</param>
+        public void DeleteRealmlist(RealmlistModel realmlist)
+        {
+            var result = MessageBox.Show("Foo", "Bar", MessageBoxButton.OKCancel);
+            if (result != MessageBoxResult.OK) return;
+
+            // Delete from the database
+            _connectionManager.DeleteRealmlist(realmlist.DataModel.Id);
+
+            Location.Realmlists.Remove(realmlist);
         }
 
         #endregion

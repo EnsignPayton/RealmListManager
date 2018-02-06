@@ -70,5 +70,19 @@ namespace RealmListManager.UI.Core.Utilities
             return _dbConnection.Query<Entities.Realmlist>("SELECT * FROM Realmlist WHERE LocationId = @LocationId",
                 new {LocationId = locationId});
         }
+
+        public void DeleteLocation(Guid locationId)
+        {
+            _dbConnection.Execute("DELETE FROM Realmlist WHERE LocationId = @LocationId",
+                new { LocationId = locationId });
+            _dbConnection.Execute("DELETE FROM Location WHERE Id = @LocationId",
+                new { LocationId = locationId });
+        }
+
+        public void DeleteRealmlist(Guid realmlistId)
+        {
+            _dbConnection.Execute("DELETE FROM Realmlist WHERE Id = @Id",
+                new { Id = realmlistId });
+        }
     }
 }

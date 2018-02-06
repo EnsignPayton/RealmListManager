@@ -71,6 +71,14 @@ namespace RealmListManager.UI.Shell
                 SelectedLocation = Locations.First();
         }
 
+        public void DeleteLocation(LocationModel location)
+        {
+            if (Locations.Count > 1)
+                SelectedLocation = Locations.First(x => x != location);
+
+            Locations.Remove(location);
+        }
+
         #endregion
 
         #region Methods

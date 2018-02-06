@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <!-- Application Color Scheme -->
     <Brush x:Key="PrimaryBrush">#607D8B</Brush>
     <Brush x:Key="PrimaryBrush700">#455A64</Brush>
@@ -8,7 +9,8 @@
     <Brush x:Key="SecondaryBrush">#4CAF50</Brush>
     <Brush x:Key="SecondaryBrush700">#388E3C</Brush>
     <Brush x:Key="SecondaryBrush300">#81C784</Brush>
-    
+
+    <!-- Vector Graphics -->
     <DrawingBrush x:Key="PlusSignBrush" Stretch="Uniform">
         <DrawingBrush.Drawing>
             <DrawingGroup>
@@ -18,5 +20,33 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
+
+    <DrawingBrush x:Key="CrossBrush" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="White" Geometry="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush x:Key="PencilBrush" Stretch="Uniform">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="White" Geometry="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <!-- String Resources -->
+    <system:String x:Key="ToolTip_AddLocation">Add a new World of Warcraft installation.</system:String>
+    <system:String x:Key="ToolTip_AddRealmlist">Add a new realmlist option to this installation.</system:String>
+    <system:String x:Key="ToolTip_PlayLocation">Start this World of Warcraft installation with the currently configured realmlist.</system:String>
+    <system:String x:Key="ToolTip_PlayRealmlist">Start this World of Warcraft installation, configured with this realmlist.</system:String>
+    <system:String x:Key="ToolTip_DeleteLocation">Remove this World of Warcraft installation from the list of locations.</system:String>
+    <system:String x:Key="ToolTip_DeleteRealmlist">Remove this realmlist from this World of Warcraft installation.</system:String>
 
 </ResourceDictionary>

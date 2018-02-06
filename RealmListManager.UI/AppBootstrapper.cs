@@ -32,6 +32,7 @@ namespace RealmListManager.UI
                 _.For<IWindowManager>().Singleton().Use<WindowManager>();
                 _.For<IDbConnection>().Use(_dbConnection);
                 _.ForConcreteType<DbConnectionManager>().Configure.Singleton();
+                _.ForConcreteType<ShellViewModel>().Configure.Singleton();
             });
 
             _serviceLocator = new StructureMapServiceLocator(container);
