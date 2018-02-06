@@ -65,8 +65,8 @@ namespace RealmListManager.UI.Location
         public void DeleteLocation()
         {
             var messageBox = IoC.Get<MessageBoxViewModel>();
-            messageBox.Title = "Delete Realmlist";
-            messageBox.Message = "This realmlist will be permanently deleted. Continue?";
+            messageBox.Title = "Delete Location";
+            messageBox.Message = "This location will be permanently deleted. Continue?";
             messageBox.ButtonType = MessageBoxButton.OKCancel;
             _windowManager.ShowDialog(messageBox);
             if (messageBox.Result != MessageBoxResult.OK) return;
