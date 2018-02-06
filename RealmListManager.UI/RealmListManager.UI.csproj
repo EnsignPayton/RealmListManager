@@ -105,6 +105,12 @@
     <Compile Include="Core\Utilities\DbConnectionProvider.cs" />
     <Compile Include="Core\Utilities\ImageUtilities.cs" />
     <Compile Include="Core\Utilities\FileUtilities.cs" />
+    <Compile Include="Dialogs\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MessageBoxViewModel.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\NewLocationView.xaml.cs">
       <DependentUpon>NewLocationView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +168,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dialogs\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\NewLocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

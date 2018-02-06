@@ -64,8 +64,12 @@ namespace RealmListManager.UI.Location
         /// </summary>
         public void DeleteLocation()
         {
-            var result = MessageBox.Show("Foo", "Bar", MessageBoxButton.OKCancel);
-            if (result != MessageBoxResult.OK) return;
+            var messageBox = IoC.Get<MessageBoxViewModel>();
+            messageBox.Title = "Delete Realmlist";
+            messageBox.Message = "This realmlist will be permanently deleted. Continue?";
+            messageBox.ButtonType = MessageBoxButton.OKCancel;
+            _windowManager.ShowDialog(messageBox);
+            if (messageBox.Result != MessageBoxResult.OK) return;
 
             // Delete from the database
             _connectionManager.DeleteLocation(Location.DataModel.Id);
@@ -81,8 +85,12 @@ namespace RealmListManager.UI.Location
         /// <param name="realmlist">Realmlist</param>
         public void DeleteRealmlist(RealmlistModel realmlist)
         {
-            var result = MessageBox.Show("Foo", "Bar", MessageBoxButton.OKCancel);
-            if (result != MessageBoxResult.OK) return;
+            var messageBox = IoC.Get<MessageBoxViewModel>();
+            messageBox.Title = "Delete Realmlist";
+            messageBox.Message = "This realmlist will be permanently deleted. Continue?";
+            messageBox.ButtonType = MessageBoxButton.OKCancel;
+            _windowManager.ShowDialog(messageBox);
+            if (messageBox.Result != MessageBoxResult.OK) return;
 
             // Delete from the database
             _connectionManager.DeleteRealmlist(realmlist.DataModel.Id);
