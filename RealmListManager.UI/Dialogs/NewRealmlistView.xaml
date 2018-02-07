@@ -27,6 +27,7 @@
 
             <controls:HintTextBox HintText="Realmlist URL"
                                   Text="{Binding NewRealmlist.Url, UpdateSourceTrigger=PropertyChanged}"
+                                  IsError="{Binding NewRealmlist.UrlValid, Converter={StaticResource NegatedBooleanConverter}}"
                                   Style="{StaticResource DialogHintTextBox}"/>
 
             <Grid>

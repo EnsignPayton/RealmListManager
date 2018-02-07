@@ -31,6 +31,8 @@ namespace RealmListManager.UI.Core.Models
 
         public Entities.Realmlist DataModel { get; }
 
+        public bool UrlValid => Url == null || (Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute) && !string.IsNullOrWhiteSpace(Url));
+
         public bool ImagePathValid => ImagePath == null || File.Exists(ImagePath);
 
         public string Name
@@ -52,6 +54,7 @@ namespace RealmListManager.UI.Core.Models
                 if (DataModel.Url == value) return;
                 DataModel.Url = value;
                 NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => UrlValid);
             }
         }
 
@@ -62,8 +65,11 @@ namespace RealmListManager.UI.Core.Models
             {
                 if (_imagePath == value) return;
                 _imagePath = value;
+
                 Image = ImagePathValid && _imagePath != null ? ImageUtilities.ParseImageFile(_imagePath) : null;
+
                 NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => ImagePathValid);
             }
         }
 

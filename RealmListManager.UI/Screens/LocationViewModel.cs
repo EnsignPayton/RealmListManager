@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
+using RealmListManager.UI.Core;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
@@ -11,17 +12,17 @@ namespace RealmListManager.UI.Screens
     {
         #region Fields
 
-        private readonly IWindowManager _windowManager;
+        private readonly IWindowConductor _windowConductor;
         private readonly DbConnectionManager _connectionManager;
 
         #endregion
 
         #region Constructor
 
-        public LocationViewModel(IWindowManager windowManager,
+        public LocationViewModel(IWindowConductor windowConductor,
             DbConnectionManager connectionManager)
         {
-            _windowManager = windowManager;
+            _windowConductor = windowConductor;
             _connectionManager = connectionManager;
         }
 
@@ -40,13 +41,12 @@ namespace RealmListManager.UI.Screens
         /// </summary>
         public void AddRealmlist()
         {
-            var newRealmlistViewModel = IoC.Get<NewRealmlistViewModel>();
-            _windowManager.ShowDialog(newRealmlistViewModel);
+            var newRealmlistDialog = _windowConductor.ShowDialog<NewRealmlistViewModel>();
 
-            if (newRealmlistViewModel.Result == false) return;
-            Location.Realmlists.Add(newRealmlistViewModel.NewRealmlist);
+            if (newRealmlistDialog.Result == false) return;
+            Location.Realmlists.Add(newRealmlistDialog.NewRealmlist);
 
-            _connectionManager.InsertRealmlist(newRealmlistViewModel.NewRealmlist.DataModel, Location.DataModel.Id);
+            _connectionManager.InsertRealmlist(newRealmlistDialog.NewRealmlist.DataModel, Location.DataModel.Id);
         }
 
         /// <summary>
@@ -63,12 +63,9 @@ namespace RealmListManager.UI.Screens
         /// </summary>
         public void DeleteLocation()
         {
-            var messageBox = IoC.Get<MessageBoxViewModel>();
-            messageBox.Title = "Delete Location";
-            messageBox.Message = "This location will be permanently deleted. Continue?";
-            messageBox.ButtonType = MessageBoxButton.OKCancel;
-            _windowManager.ShowDialog(messageBox);
-            if (messageBox.Result != MessageBoxResult.OK) return;
+            var result = _windowConductor.ShowMessageBox("This location will be permanently deleted. Continue?",
+                "Delete Location");
+            if (result != MessageBoxResult.OK) return;
 
             // Delete from the database
             _connectionManager.DeleteLocation(Location.DataModel.Id);
@@ -84,12 +81,9 @@ namespace RealmListManager.UI.Screens
         /// <param name="realmlist">Realmlist</param>
         public void DeleteRealmlist(RealmlistModel realmlist)
         {
-            var messageBox = IoC.Get<MessageBoxViewModel>();
-            messageBox.Title = "Delete Realmlist";
-            messageBox.Message = "This realmlist will be permanently deleted. Continue?";
-            messageBox.ButtonType = MessageBoxButton.OKCancel;
-            _windowManager.ShowDialog(messageBox);
-            if (messageBox.Result != MessageBoxResult.OK) return;
+            var result = _windowConductor.ShowMessageBox("This realmlist will be permanently deleted. Continue?",
+                "Delete Realmlist");
+            if (result != MessageBoxResult.OK) return;
 
             // Delete from the database
             _connectionManager.DeleteRealmlist(realmlist.DataModel.Id);

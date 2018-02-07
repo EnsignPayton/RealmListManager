@@ -24,7 +24,8 @@ namespace RealmListManager.UI.Dialogs
         public bool Result { get; private set; }
 
         public bool CanSave => !string.IsNullOrWhiteSpace(NewLocation.Name) &&
-                               !string.IsNullOrWhiteSpace(NewLocation.Path);
+                               !string.IsNullOrWhiteSpace(NewLocation.Path) &&
+                               NewLocation.PathValid && NewLocation.ImagePathValid;
 
         #endregion
 

@@ -90,7 +90,7 @@ namespace RealmListManager.UI.Core.Utilities
         /// </summary>
         /// <param name="path">Location Path</param>
         /// <param name="realmlistUrl">Realmlist URL</param>
-        public static void StartLocation(string path, string realmlistUrl = null)
+        public static bool StartLocation(string path, string realmlistUrl = null)
         {
             if (realmlistUrl != null)
             {
@@ -98,7 +98,16 @@ namespace RealmListManager.UI.Core.Utilities
                 ReplaceRealmlist(path, realmlistUrl);
             }
 
-            Process.Start(Path.Combine(path, "Wow.exe"));
+            try
+            {
+                Process.Start(Path.Combine(path, "Wow.exe"));
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static string GetRealmlistFile(string path)

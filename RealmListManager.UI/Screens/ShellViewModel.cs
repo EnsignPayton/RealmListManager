@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using Caliburn.Micro;
+using RealmListManager.UI.Core;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
 
 namespace RealmListManager.UI.Screens
 {
-    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IWindowConductor
     {
         #region Fields
 
@@ -58,9 +60,7 @@ namespace RealmListManager.UI.Screens
 
         public void AddLocation()
         {
-            var newLocationViewModel = IoC.Get<NewLocationViewModel>();
-            _windowManager.ShowDialog(newLocationViewModel);
-
+            var newLocationViewModel = ShowDialog<NewLocationViewModel>();
             if (newLocationViewModel.Result == false) return;
             Locations.Add(newLocationViewModel.NewLocation);
 
@@ -101,6 +101,43 @@ namespace RealmListManager.UI.Screens
             var screen = IoC.Get<T>();
             initAction?.Invoke(screen);
             ActivateItem(screen);
+        }
+
+        public T ShowDialog<T>(Action<T> initAction = null) where T : IScreen
+        {
+            var screen = IoC.Get<T>();
+            initAction?.Invoke(screen);
+            _windowManager.ShowDialog(screen);
+            return screen;
+        }
+
+        public T ShowWindow<T>(Action<T> initAction = null) where T : IScreen
+        {
+            var screen = IoC.Get<T>();
+            initAction?.Invoke(screen);
+            _windowManager.ShowWindow(screen);
+            return screen;
+        }
+
+        public T ShowPopup<T>(Action<T> initAction = null) where T : IScreen
+        {
+            var screen = IoC.Get<T>();
+            initAction?.Invoke(screen);
+            _windowManager.ShowPopup(screen);
+            return screen;
+        }
+
+        public MessageBoxResult ShowMessageBox(string message, string title = null,
+            MessageBoxButton buttonType = MessageBoxButton.OKCancel)
+        {
+            var messageBox = ShowDialog<MessageBoxViewModel>(vm =>
+            {
+                vm.Title = title;
+                vm.Message = message;
+                vm.ButtonType = buttonType;
+            });
+
+            return messageBox.Result;
         }
 
         #endregion
