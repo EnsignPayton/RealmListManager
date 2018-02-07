@@ -8,7 +8,18 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance screens:FirstTimeViewModel}"
              d:DesignWidth="560" d:DesignHeight="600">
-    <Grid>
-        
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1"
+                   Foreground="Black"
+                   FontSize="24"
+                   HorizontalAlignment="Center"
+                   Text="Add a location to get started"/>
     </Grid>
 </UserControl>

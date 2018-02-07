@@ -29,7 +29,6 @@ namespace RealmListManager.UI.Screens
 
             var savedLocations = _connectionManager.QueryLocations();
             Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
-            if (Locations.Any()) SelectedLocation = Locations.First();
         }
 
         #endregion
@@ -46,7 +45,8 @@ namespace RealmListManager.UI.Screens
                 if (_selectedLocation == value) return;
                 _selectedLocation = value;
 
-                Show<LocationViewModel>(vm => vm.Location = _selectedLocation);
+                if (_selectedLocation != null)
+                    Show<LocationViewModel>(vm => vm.Location = _selectedLocation);
 
                 NotifyOfPropertyChange();
             }
@@ -73,7 +73,14 @@ namespace RealmListManager.UI.Screens
         public void DeleteLocation(LocationModel location)
         {
             if (Locations.Count > 1)
+            {
                 SelectedLocation = Locations.First(x => x != location);
+            }
+            else
+            {
+                SelectedLocation = null;
+                Show<FirstTimeViewModel>();
+            }
 
             Locations.Remove(location);
         }
@@ -81,6 +88,13 @@ namespace RealmListManager.UI.Screens
         #endregion
 
         #region Methods
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            if (Locations.Any()) SelectedLocation = Locations.First();
+            if (ActiveItem == null) Show<FirstTimeViewModel>();
+            base.OnViewAttached(view, context);
+        }
 
         public void Show<T>(Action<T> initAction = null) where T : IScreen
         {
