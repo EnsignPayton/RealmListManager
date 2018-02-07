@@ -60,7 +60,7 @@ namespace RealmListManager.UI
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             var windowConductor = _serviceLocator.GetInstance<IWindowConductor>();
-            windowConductor.ShowMessageBox($"An error has occured: {e.Exception.Message}. Application will now terminate.",
+            windowConductor.ShowMessageBox($"An error has occured: {e.Exception.Message}{Environment.NewLine}Application will now terminate.",
                 "Unexpected Error", MessageBoxButton.OK);
             base.OnUnhandledException(sender, e);
         }
