@@ -124,6 +124,12 @@
     <Compile Include="Dialogs\NewRealmlistViewModel.cs">
       <DependentUpon>NewRealmlistView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Screens\FirstTimeView.xaml.cs">
+      <DependentUpon>FirstTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\FirstTimeViewModel.cs">
+      <DependentUpon>FirstTimeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\LocationView.xaml.cs">
       <DependentUpon>LocationView.xaml</DependentUpon>
     </Compile>
@@ -177,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\NewRealmlistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\FirstTimeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -92,7 +92,7 @@
                 <Rectangle Fill="{StaticResource PlusSignBrush}" Width="16" Height="16"/>
             </Button>
         </Grid>
-        
+
         <!-- Realmlist List -->
         <ItemsControl Grid.Row="2"
                       ItemsSource="{Binding Location.Realmlists}"
