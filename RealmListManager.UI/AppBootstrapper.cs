@@ -6,7 +6,7 @@ using Caliburn.Micro;
 using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using RealmListManager.UI.Core.Utilities;
-using RealmListManager.UI.Shell;
+using RealmListManager.UI.Screens;
 using StructureMap;
 
 namespace RealmListManager.UI

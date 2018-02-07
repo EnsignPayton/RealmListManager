@@ -124,18 +124,18 @@
     <Compile Include="Dialogs\NewRealmlistViewModel.cs">
       <DependentUpon>NewRealmlistView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Location\LocationView.xaml.cs">
+    <Compile Include="Screens\LocationView.xaml.cs">
       <DependentUpon>LocationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Location\LocationViewModel.cs">
+    <Compile Include="Screens\LocationViewModel.cs">
       <DependentUpon>LocationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\Models\LocationModel.cs" />
     <Compile Include="Core\Models\RealmlistModel.cs" />
-    <Compile Include="Shell\ShellView.xaml.cs">
+    <Compile Include="Screens\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shell\ShellViewModel.cs">
+    <Compile Include="Screens\ShellViewModel.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -180,11 +180,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Location\LocationView.xaml">
+    <Page Include="Screens\LocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Shell\ShellView.xaml">
+    <Page Include="Screens\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,6 +197,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

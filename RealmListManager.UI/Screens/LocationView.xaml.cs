@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RealmListManager.UI.Location
+namespace RealmListManager.UI.Screens
 {
     /// <summary>
     /// Interaction logic for LocationView.xaml

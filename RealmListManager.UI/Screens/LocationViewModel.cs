@@ -4,9 +4,8 @@ using Caliburn.Micro;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
-using RealmListManager.UI.Shell;
 
-namespace RealmListManager.UI.Location
+namespace RealmListManager.UI.Screens
 {
     public class LocationViewModel : Screen
     {

@@ -5,9 +5,8 @@ using Caliburn.Micro;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
-using RealmListManager.UI.Location;
 
-namespace RealmListManager.UI.Shell
+namespace RealmListManager.UI.Screens
 {
     public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
     {

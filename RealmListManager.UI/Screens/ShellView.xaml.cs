@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace RealmListManager.UI.Shell
+namespace RealmListManager.UI.Screens
 {
     /// <summary>
     /// Interaction logic for ShellView.xaml
