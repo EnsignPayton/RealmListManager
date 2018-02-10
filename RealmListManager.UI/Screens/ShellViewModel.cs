@@ -97,9 +97,6 @@ namespace RealmListManager.UI.Screens
 
         #region Methods
 
-        /// <summary>
-        /// Show the appropriate screen on startup.
-        /// </summary>
         protected override void OnViewAttached(object view, object context)
         {
             if (Locations.Any()) SelectedLocation = Locations.First();
@@ -107,11 +104,6 @@ namespace RealmListManager.UI.Screens
             base.OnViewAttached(view, context);
         }
 
-        /// <summary>
-        /// Show a screen as the ActiveItem.
-        /// </summary>
-        /// <typeparam name="T">ViewModel</typeparam>
-        /// <param name="initAction">Initialization Action</param>
         public void Show<T>(Action<T> initAction = null) where T : IScreen
         {
             var screen = IoC.Get<T>();
@@ -119,12 +111,6 @@ namespace RealmListManager.UI.Screens
             ActivateItem(screen);
         }
 
-        /// <summary>
-        /// Show a screen in a modal dialog.
-        /// </summary>
-        /// <typeparam name="T">ViewModel</typeparam>
-        /// <param name="initAction">Initialization Action</param>
-        /// <returns>ViewModel</returns>
         public T ShowDialog<T>(Action<T> initAction = null) where T : IScreen
         {
             var screen = IoC.Get<T>();
@@ -133,12 +119,6 @@ namespace RealmListManager.UI.Screens
             return screen;
         }
 
-        /// <summary>
-        /// Show a screen in a non-modal window.
-        /// </summary>
-        /// <typeparam name="T">ViewModel</typeparam>
-        /// <param name="initAction">Initialization Action</param>
-        /// <returns>ViewModel</returns>
         public T ShowWindow<T>(Action<T> initAction = null) where T : IScreen
         {
             var screen = IoC.Get<T>();
@@ -147,12 +127,6 @@ namespace RealmListManager.UI.Screens
             return screen;
         }
 
-        /// <summary>
-        /// Show a screen in a popup control at the current mouse position.
-        /// </summary>
-        /// <typeparam name="T">ViewModel</typeparam>
-        /// <param name="initAction">Initialization Action</param>
-        /// <returns>ViewModel</returns>
         public T ShowPopup<T>(Action<T> initAction = null) where T : IScreen
         {
             var screen = IoC.Get<T>();
@@ -161,13 +135,6 @@ namespace RealmListManager.UI.Screens
             return screen;
         }
 
-        /// <summary>
-        /// Show a message box in the application's theme.
-        /// </summary>
-        /// <param name="message">Message</param>
-        /// <param name="title">Title</param>
-        /// <param name="buttonType">Button Type</param>
-        /// <returns>Result</returns>
         public MessageBoxResult ShowMessageBox(string message, string title = null,
             MessageBoxButton buttonType = MessageBoxButton.OKCancel)
         {
