@@ -34,7 +34,7 @@ namespace RealmListManager.UI.Screens
             eventAggregator.Subscribe(this);
 
             // Populate locations from database
-            var savedLocations = _connectionManager.QueryLocations();
+            var savedLocations = _connectionManager.QueryLocations().OrderBy(x => x.Index);
             Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
         }
 
@@ -69,52 +69,7 @@ namespace RealmListManager.UI.Screens
 
         #endregion
 
-        #region Actions
-
-        /// <summary>
-        /// Opens a dialog to add a new location.
-        /// </summary>
-        public void AddLocation()
-        {
-            var dialog = ShowDialog<NewLocationViewModel>();
-            if (dialog.Result == false) return;
-            Locations.Add(dialog.Location);
-
-            _connectionManager.InsertLocation(dialog.Location.DataModel);
-
-            if (Locations.Count == 1)
-                SelectedLocation = Locations.First();
-        }
-
-        /// <summary>
-        /// Deletes a location and cleans up the UI.
-        /// </summary>
-        /// <param name="location">Location</param>
-        public void DeleteLocation(LocationModel location)
-        {
-            if (Locations.Count > 1)
-            {
-                SelectedLocation = Locations.First(x => x != location);
-            }
-            else
-            {
-                SelectedLocation = null;
-                Show<FirstTimeViewModel>();
-            }
-
-            Locations.Remove(location);
-        }
-
-        #endregion
-
-        #region Methods
-
-        protected override void OnViewAttached(object view, object context)
-        {
-            if (Locations.Any()) SelectedLocation = Locations.First();
-            if (ActiveItem == null) Show<FirstTimeViewModel>();
-            base.OnViewAttached(view, context);
-        }
+        #region IWindowConductor
 
         public void Show<T>(Action<T> initAction = null) where T : IScreen
         {
@@ -160,6 +115,80 @@ namespace RealmListManager.UI.Screens
             return messageBox.Result;
         }
 
+        #endregion
+
+        #region Actions
+
+        /// <summary>
+        /// Opens a dialog to add a new location.
+        /// </summary>
+        public void AddLocation()
+        {
+            var dialog = ShowDialog<NewLocationViewModel>();
+            if (dialog.Result == false) return;
+            Locations.Add(dialog.Location);
+            dialog.Location.Index = Locations.IndexOf(dialog.Location);
+
+            _connectionManager.InsertLocation(dialog.Location.DataModel);
+
+            if (Locations.Count == 1)
+                SelectedLocation = Locations.First();
+        }
+
+        /// <summary>
+        /// Deletes a location and cleans up the UI.
+        /// </summary>
+        /// <param name="location">Location</param>
+        public void DeleteLocation(LocationModel location)
+        {
+            // Delete from the database
+            _connectionManager.DeleteLocation(location.DataModel.Id);
+
+            // Update indices
+            for (int i = 0; i < Locations.Count; i++)
+            {
+                if (Locations[i].Index == i) continue;
+                Locations[i].Index = i;
+                _connectionManager.UpdateLocation(Locations[i].DataModel);
+            }
+
+            if (Locations.Count > 1)
+            {
+                SelectedLocation = Locations.First(x => x != location);
+            }
+            else
+            {
+                SelectedLocation = null;
+                Show<FirstTimeViewModel>();
+            }
+
+            Locations.Remove(location);
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            if (Locations.Any()) SelectedLocation = Locations.First();
+            if (ActiveItem == null) Show<FirstTimeViewModel>();
+            base.OnViewAttached(view, context);
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            // Update indices in the case of an old DB (All indices 0)
+            for (int i = 0; i < Locations.Count; i++)
+            {
+                if (Locations[i].Index == i) continue;
+                Locations[i].Index = i;
+                _connectionManager.UpdateLocation(Locations[i].DataModel);
+            }
+
+            base.OnDeactivate(close);
+        }
+
         public void Handle(LocationChanged message)
         {
             if (message.IsDeleted)
@@ -169,7 +198,7 @@ namespace RealmListManager.UI.Screens
             else
             {
                 var selectedId = message.Location.DataModel.Id;
-                var savedLocations = _connectionManager.QueryLocations();
+                var savedLocations = _connectionManager.QueryLocations().OrderBy(x => x.Index);
                 Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
                 SelectedLocation = Locations.FirstOrDefault(x => x.DataModel.Id == selectedId);
             }

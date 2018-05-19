@@ -65,26 +65,28 @@ namespace RealmListManager.UI.Core.Utilities
 
         public void InsertLocation(Entities.Location entity)
         {
-            _dbConnection.Execute("INSERT INTO Location VALUES(@Id, @Name, @Path, @Image)",
+            _dbConnection.Execute("INSERT INTO Location VALUES(@Id, @Name, @Path, @Image, @Index)",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Path = entity.Path,
-                    Image = entity.Image
+                    Image = entity.Image,
+                    Index = entity.Index
                 });
         }
 
         public void InsertRealmlist(Entities.Realmlist entity, Guid locationId)
         {
             _dbConnection.Execute(
-                "INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @LocationId)",
+                "INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @Index, @LocationId)",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Url = entity.Url,
                     Image = entity.Image,
+                    Index = entity.Index,
                     LocationId = locationId
                 });
         }
@@ -92,26 +94,28 @@ namespace RealmListManager.UI.Core.Utilities
         public void UpdateLocation(Entities.Location entity)
         {
             _dbConnection.Execute(
-                "UPDATE Location SET Name = @Name, Path = @Path, Image = @Image WHERE Id = @Id",
+                "UPDATE Location SET Name = @Name, Path = @Path, Image = @Image, [Index] = @Index WHERE Id = @Id",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Path = entity.Path,
-                    Image = entity.Image
+                    Image = entity.Image,
+                    Index = entity.Index
                 });
         }
 
         public void UpdateRealmlist(Entities.Realmlist entity, Guid locationId)
         {
             _dbConnection.Execute(
-                "UPDATE Realmlist SET Name = @Name, Url = @Url, Image = @Image, LocationId = @LocationId WHERE Id = @Id",
+                "UPDATE Realmlist SET Name = @Name, Url = @Url, Image = @Image, [Index] = @Index, LocationId = @LocationId WHERE Id = @Id",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Url = entity.Url,
                     Image = entity.Image,
+                    Index = entity.Index,
                     LocationId = locationId
                 });
         }

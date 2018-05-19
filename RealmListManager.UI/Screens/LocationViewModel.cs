@@ -59,10 +59,6 @@ namespace RealmListManager.UI.Screens
                 "Delete Location");
             if (result != MessageBoxResult.OK) return;
 
-            // Delete from the database
-            _connectionManager.DeleteLocation(Location.DataModel.Id);
-
-            // Deactivate and dispose this screen
             _eventAggregator.PublishOnUIThread(new LocationChanged { IsDeleted = true, Location = Location });
         }
 
