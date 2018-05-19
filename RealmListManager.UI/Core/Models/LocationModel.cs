@@ -119,7 +119,6 @@ namespace RealmListManager.UI.Core.Models
 
         public LocationModel Clone()
         {
-            // TODO: Use serialization to make this general for all models
             var clone = new Location
             {
                 Id = DataModel.Id,

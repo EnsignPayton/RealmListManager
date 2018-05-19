@@ -22,12 +22,12 @@
                     Margin="4">
             <controls:HintTextBox x:Name="NameTextBox"
                                   HintText="Name"
-                                  Text="{Binding NewRealmlist.Name, UpdateSourceTrigger=PropertyChanged}"
+                                  Text="{Binding Realmlist.Name, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource DialogHintTextBox}"/>
 
             <controls:HintTextBox HintText="Realmlist URL"
-                                  Text="{Binding NewRealmlist.Url, UpdateSourceTrigger=PropertyChanged}"
-                                  IsError="{Binding NewRealmlist.UrlValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                  Text="{Binding Realmlist.Url, UpdateSourceTrigger=PropertyChanged}"
+                                  IsError="{Binding Realmlist.UrlValid, Converter={StaticResource NegatedBooleanConverter}}"
                                   Style="{StaticResource DialogHintTextBox}"/>
 
             <Grid>
@@ -38,8 +38,8 @@
 
                 <controls:HintTextBox Grid.Column="0"
                                       HintText="Image Path"
-                                      Text="{Binding NewRealmlist.ImagePath, UpdateSourceTrigger=PropertyChanged}"
-                                      IsError="{Binding NewRealmlist.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Text="{Binding Realmlist.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding Realmlist.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
                                       Style="{StaticResource DialogHintTextBox}"/>
 
                 <Button x:Name="BrowseImagePath"

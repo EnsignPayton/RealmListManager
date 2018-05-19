@@ -11,20 +11,20 @@ namespace RealmListManager.UI.Dialogs
 
         public NewRealmlistViewModel()
         {
-            NewRealmlist = new RealmlistModel();
-            NewRealmlist.PropertyChanged += NewRealmlist_PropertyChanged;
+            Realmlist = new RealmlistModel();
+            Realmlist.PropertyChanged += Realmlist_PropertyChanged;
         }
 
         #endregion
 
         #region Properties
 
-        public RealmlistModel NewRealmlist { get; }
+        public RealmlistModel Realmlist { get; set; }
 
         public bool Result { get; private set; }
 
-        public bool CanSave => !string.IsNullOrWhiteSpace(NewRealmlist.Name) &&
-                               !string.IsNullOrWhiteSpace(NewRealmlist.Url);
+        public bool CanSave => !string.IsNullOrWhiteSpace(Realmlist.Name) &&
+                               !string.IsNullOrWhiteSpace(Realmlist.Url);
 
         #endregion
 
@@ -40,7 +40,7 @@ namespace RealmListManager.UI.Dialogs
 
             if (result != CommonFileDialogResult.Ok) return;
 
-            NewRealmlist.ImagePath = dialog.FileName;
+            Realmlist.ImagePath = dialog.FileName;
         }
 
         public void Save()
@@ -59,7 +59,7 @@ namespace RealmListManager.UI.Dialogs
 
         #region Events
 
-        private void NewRealmlist_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Realmlist_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             NotifyOfPropertyChange(() => CanSave);
         }

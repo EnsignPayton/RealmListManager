@@ -87,9 +87,9 @@ namespace RealmListManager.UI.Screens
             var dialog = _windowConductor.ShowDialog<NewRealmlistViewModel>();
 
             if (dialog.Result == false) return;
-            Location.Realmlists.Add(dialog.NewRealmlist);
+            Location.Realmlists.Add(dialog.Realmlist);
 
-            _connectionManager.InsertRealmlist(dialog.NewRealmlist.DataModel, Location.DataModel.Id);
+            _connectionManager.InsertRealmlist(dialog.Realmlist.DataModel, Location.DataModel.Id);
         }
 
         /// <summary>
@@ -106,6 +106,21 @@ namespace RealmListManager.UI.Screens
             _connectionManager.DeleteRealmlist(realmlist.DataModel.Id);
 
             Location.Realmlists.Remove(realmlist);
+        }
+
+        public void EditRealmlist(RealmlistModel realmlist)
+        {
+            var dialog = _windowConductor.ShowDialog<NewRealmlistViewModel>(vm => vm.Realmlist = realmlist.Clone());
+            if (dialog.Result == false) return;
+
+            Location.Realmlists.Clear();
+            _connectionManager.UpdateRealmlist(dialog.Realmlist.DataModel, Location.DataModel.Id);
+            var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id);
+            foreach (var savedRealmlist in savedRealmlists)
+            {
+                if (Location.Realmlists.All(x => x.DataModel.Id != savedRealmlist.Id))
+                    Location.Realmlists.Add(new RealmlistModel(savedRealmlist));
+            }
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Media;
 using Caliburn.Micro;
+using RealmListManager.UI.Core.Entities;
 using RealmListManager.UI.Core.Utilities;
 
 namespace RealmListManager.UI.Core.Models
@@ -17,9 +18,9 @@ namespace RealmListManager.UI.Core.Models
 
         #region Constructor
 
-        public RealmlistModel(Entities.Realmlist dataModel = null)
+        public RealmlistModel(Realmlist dataModel = null)
         {
-            DataModel = dataModel ?? new Entities.Realmlist {Id = Guid.NewGuid()};
+            DataModel = dataModel ?? new Realmlist {Id = Guid.NewGuid()};
 
             if (DataModel.Image != null)
                 _image = ImageUtilities.Deserialize(DataModel.Image);
@@ -29,7 +30,7 @@ namespace RealmListManager.UI.Core.Models
 
         #region Properties
 
-        public Entities.Realmlist DataModel { get; }
+        public Realmlist DataModel { get; }
 
         public bool UrlValid => Url == null || (Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute) && !string.IsNullOrWhiteSpace(Url));
 
@@ -86,5 +87,18 @@ namespace RealmListManager.UI.Core.Models
         }
 
         #endregion
+
+        public RealmlistModel Clone()
+        {
+            var clone = new Realmlist
+            {
+                Id = DataModel.Id,
+                Name = DataModel.Name,
+                Image = DataModel.Image,
+                Url = DataModel.Url
+            };
+
+            return new RealmlistModel(clone);
+        }
     }
 }
