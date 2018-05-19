@@ -48,5 +48,7 @@
     <system:String x:Key="ToolTip_PlayRealmlist">Start this World of Warcraft installation, configured with this realmlist.</system:String>
     <system:String x:Key="ToolTip_DeleteLocation">Remove this World of Warcraft installation from the list of locations.</system:String>
     <system:String x:Key="ToolTip_DeleteRealmlist">Remove this realmlist from this World of Warcraft installation.</system:String>
+    <system:String x:Key="ToolTip_EditLocation">Edit this World of Warcraft installation.</system:String>
+    <system:String x:Key="ToolTip_EditRealmlist">Edit this realmlist.</system:String>
 
 </ResourceDictionary>
