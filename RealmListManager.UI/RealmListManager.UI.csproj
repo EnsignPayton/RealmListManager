@@ -101,6 +101,7 @@
     <Compile Include="Core\Converters\NegatedBooleanConverter.cs" />
     <Compile Include="Core\Entities\Location.cs" />
     <Compile Include="Core\Entities\Realmlist.cs" />
+    <Compile Include="Core\Events\LocationChanged.cs" />
     <Compile Include="Core\IWindowConductor.cs" />
     <Compile Include="Core\Utilities\DbConnectionManager.cs" />
     <Compile Include="Core\Utilities\DbConnectionProvider.cs" />

@@ -36,6 +36,7 @@ namespace RealmListManager.UI
                 _.For<IServiceLocator>().Use(__ => _serviceLocator);
                 _.For<IWindowManager>().Singleton().Use<WindowManager>();
                 _.For<IWindowConductor>().Singleton().Use<ShellViewModel>();
+                _.For<IEventAggregator>().Singleton().Use<EventAggregator>();
                 _.For<IDbConnection>().Use(_dbConnection);
             });
 

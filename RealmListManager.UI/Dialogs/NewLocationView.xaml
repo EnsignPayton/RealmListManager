@@ -22,7 +22,7 @@
                     Margin="4">
             <controls:HintTextBox x:Name="NameTextBox"
                                   HintText="Name"
-                                  Text="{Binding NewLocation.Name, UpdateSourceTrigger=PropertyChanged}"
+                                  Text="{Binding Location.Name, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource DialogHintTextBox}"/>
 
             <Grid>
@@ -33,8 +33,8 @@
 
                 <controls:HintTextBox Grid.Column="0"
                                       HintText="Install Path"
-                                      Text="{Binding NewLocation.Path, UpdateSourceTrigger=PropertyChanged}"
-                                      IsError="{Binding NewLocation.PathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Text="{Binding Location.Path, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding Location.PathValid, Converter={StaticResource NegatedBooleanConverter}}"
                                       Style="{StaticResource DialogHintTextBox}"/>
 
                 <Button x:Name="BrowsePath"
@@ -51,8 +51,8 @@
 
                 <controls:HintTextBox Grid.Column="0"
                                       HintText="Image Path"
-                                      Text="{Binding NewLocation.ImagePath, UpdateSourceTrigger=PropertyChanged}"
-                                      IsError="{Binding NewLocation.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
+                                      Text="{Binding Location.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                                      IsError="{Binding Location.ImagePathValid, Converter={StaticResource NegatedBooleanConverter}}"
                                       Style="{StaticResource DialogHintTextBox}"/>
 
                 <Button x:Name="BrowseImagePath"

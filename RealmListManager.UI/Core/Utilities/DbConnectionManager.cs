@@ -49,7 +49,35 @@ namespace RealmListManager.UI.Core.Utilities
 
         public void InsertRealmlist(Entities.Realmlist entity, Guid locationId)
         {
-            _dbConnection.Execute("INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @LocationId)",
+            _dbConnection.Execute(
+                "INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @LocationId)",
+                new
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Url = entity.Url,
+                    Image = entity.Image,
+                    LocationId = locationId
+                });
+        }
+
+        public void UpdateLocation(Entities.Location entity)
+        {
+            _dbConnection.Execute(
+                "UPDATE Location SET Name = @Name, Path = @Path, Image = @Image WHERE Id = @Id",
+                new
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Path = entity.Path,
+                    Image = entity.Image
+                });
+        }
+
+        public void UpdateRealmlist(Entities.Realmlist entity, Guid locationId)
+        {
+            _dbConnection.Execute(
+                "UPDATE Realmlist SET Name = @Name, Url = @Url, Image = @Image, LocationId = @LocationId WHERE Id = @Id",
                 new
                 {
                     Id = entity.Id,

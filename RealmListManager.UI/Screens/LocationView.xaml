@@ -56,6 +56,14 @@
                         <Rectangle Fill="{StaticResource CrossBrush}" Width="16" Height="16"/>
                     </Button>
 
+                    <Button x:Name="EditLocation"
+                            Height="36"
+                            Width="36"
+                            Margin="0,0,8,0"
+                            Background="{StaticResource PrimaryBrush}">
+                        <Rectangle Fill="{StaticResource PencilBrush}" Width="16" Height="16"/>
+                    </Button>
+
                     <Button x:Name="Play"
                             Content="Play"
                             Height="36"
@@ -128,6 +136,13 @@
                                     ToolTip="{StaticResource ToolTip_DeleteRealmlist}"
                                     cal:Message.Attach="[Event Click] = [Action DeleteRealmlist($dataContext)]">
                                 <Rectangle Fill="{StaticResource CrossBrush}" Width="16" Height="16"/>
+                            </Button>
+
+                            <Button Height="36"
+                                    Width="36"
+                                    Margin="0,0,8,0"
+                                    cal:Message.Attach="[Event Click] = [Action EditRealmlist($dataContext)]">
+                                <Rectangle Fill="{StaticResource PencilBrush}" Width="16" Height="16"/>
                             </Button>
 
                             <Button Content="Play"

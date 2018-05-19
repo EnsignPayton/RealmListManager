@@ -4,19 +4,21 @@ using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using RealmListManager.UI.Core;
+using RealmListManager.UI.Core.Events;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
 
 namespace RealmListManager.UI.Screens
 {
-    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IWindowConductor
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IWindowConductor, IHandle<LocationChanged>
     {
         #region Fields
 
         private readonly IWindowManager _windowManager;
         private readonly DbConnectionManager _connectionManager;
 
+        private ObservableCollection<LocationModel> _locations;
         private LocationModel _selectedLocation;
 
         #endregion
@@ -24,10 +26,12 @@ namespace RealmListManager.UI.Screens
         #region Constructor
 
         public ShellViewModel(IWindowManager windowManager,
-            DbConnectionManager connectionManager)
+            DbConnectionManager connectionManager,
+            IEventAggregator eventAggregator)
         {
             _windowManager = windowManager;
             _connectionManager = connectionManager;
+            eventAggregator.Subscribe(this);
 
             // Populate locations from database
             var savedLocations = _connectionManager.QueryLocations();
@@ -38,7 +42,15 @@ namespace RealmListManager.UI.Screens
 
         #region Properties
 
-        public ObservableCollection<LocationModel> Locations { get; set; }
+        public ObservableCollection<LocationModel> Locations
+        {
+            get => _locations;
+            set
+            {
+                _locations = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         public LocationModel SelectedLocation
         {
@@ -64,11 +76,11 @@ namespace RealmListManager.UI.Screens
         /// </summary>
         public void AddLocation()
         {
-            var newLocationViewModel = ShowDialog<NewLocationViewModel>();
-            if (newLocationViewModel.Result == false) return;
-            Locations.Add(newLocationViewModel.NewLocation);
+            var dialog = ShowDialog<NewLocationViewModel>();
+            if (dialog.Result == false) return;
+            Locations.Add(dialog.Location);
 
-            _connectionManager.InsertLocation(newLocationViewModel.NewLocation.DataModel);
+            _connectionManager.InsertLocation(dialog.Location.DataModel);
 
             if (Locations.Count == 1)
                 SelectedLocation = Locations.First();
@@ -146,6 +158,21 @@ namespace RealmListManager.UI.Screens
             });
 
             return messageBox.Result;
+        }
+
+        public void Handle(LocationChanged message)
+        {
+            if (message.IsDeleted)
+            {
+                DeleteLocation(message.Location);
+            }
+            else
+            {
+                var selectedId = message.Location.DataModel.Id;
+                var savedLocations = _connectionManager.QueryLocations();
+                Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
+                SelectedLocation = Locations.FirstOrDefault(x => x.DataModel.Id == selectedId);
+            }
         }
 
         #endregion

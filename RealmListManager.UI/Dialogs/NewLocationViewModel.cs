@@ -11,21 +11,21 @@ namespace RealmListManager.UI.Dialogs
 
         public NewLocationViewModel()
         {
-            NewLocation = new LocationModel();
-            NewLocation.PropertyChanged += NewLocation_PropertyChanged;
+            Location = new LocationModel();
+            Location.PropertyChanged += Location_PropertyChanged;
         }
 
         #endregion
 
         #region Properties
 
-        public LocationModel NewLocation { get; }
+        public LocationModel Location { get; set; }
 
         public bool Result { get; private set; }
 
-        public bool CanSave => !string.IsNullOrWhiteSpace(NewLocation.Name) &&
-                               !string.IsNullOrWhiteSpace(NewLocation.Path) &&
-                               NewLocation.PathValid && NewLocation.ImagePathValid;
+        public bool CanSave => !string.IsNullOrWhiteSpace(Location.Name) &&
+                               !string.IsNullOrWhiteSpace(Location.Path) &&
+                               Location.PathValid && Location.ImagePathValid;
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace RealmListManager.UI.Dialogs
 
             if (result != CommonFileDialogResult.Ok) return;
 
-            NewLocation.Path = dialog.FileName;
+            Location.Path = dialog.FileName;
         }
 
         public void BrowseImagePath()
@@ -52,7 +52,7 @@ namespace RealmListManager.UI.Dialogs
 
             if (result != CommonFileDialogResult.Ok) return;
 
-            NewLocation.ImagePath = dialog.FileName;
+            Location.ImagePath = dialog.FileName;
         }
 
         public void Save()
@@ -71,7 +71,7 @@ namespace RealmListManager.UI.Dialogs
 
         #region Events
 
-        private void NewLocation_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Location_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             NotifyOfPropertyChange(() => CanSave);
         }

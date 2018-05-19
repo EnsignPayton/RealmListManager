@@ -22,9 +22,9 @@ namespace RealmListManager.UI.Core.Models
 
         #region Constructor
 
-        public LocationModel(Entities.Location dataModel = null)
+        public LocationModel(Location dataModel = null)
         {
-            DataModel = dataModel ?? new Entities.Location {Id = Guid.NewGuid()};
+            DataModel = dataModel ?? new Location {Id = Guid.NewGuid()};
 
             if (DataModel.Image != null)
                 _image = ImageUtilities.Deserialize(DataModel.Image);
@@ -46,7 +46,7 @@ namespace RealmListManager.UI.Core.Models
 
         #region Properties
 
-        public Entities.Location DataModel { get; }
+        public Location DataModel { get; }
 
         public bool PathValid => Path == null || FileUtilities.IsWowFolder(Path);
 
@@ -116,6 +116,25 @@ namespace RealmListManager.UI.Core.Models
         #endregion
 
         #region Methods
+
+        public LocationModel Clone()
+        {
+            var clone = new Location
+            {
+                Id = DataModel.Id,
+                Name = DataModel.Name,
+                Path = DataModel.Path,
+                Image = DataModel.Image,
+                Realmlists = new List<Realmlist>()
+            };
+
+            foreach (var realmlist in Realmlists)
+            {
+                clone.Realmlists.Add(realmlist.DataModel);
+            }
+
+            return new LocationModel(clone);
+        }
 
         private void Realmlists_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
