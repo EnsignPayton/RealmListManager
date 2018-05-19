@@ -21,7 +21,8 @@ namespace RealmListManager.UI.Core.Utilities
                                   "[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY," +
                                   "[Name] VARCHAR NOT NULL," +
                                   "[Path] VARCHAR NOT NULL," +
-                                  "[Image] BLOB NULL" +
+                                  "[Image] BLOB NULL," +
+                                  "[Index] INTEGER NOT NULL DEFAULT 0" +
                                   ");");
 
             // Realmlist
@@ -30,9 +31,36 @@ namespace RealmListManager.UI.Core.Utilities
                                   "[Name] VARCHAR NOT NULL," +
                                   "[Url] VARCHAR NOT NULL," +
                                   "[Image] BLOB NULL," +
+                                  "[Index] INTEGER NOT NULL DEFAULT 0," +
                                   "[LocationId] UNIQUEIDENTIFIER NOT NULL," +
                                   "FOREIGN KEY ([LocationId]) REFERENCES [Location] ([Id]) ON DELETE NO ACTION ON UPDATE NO ACTION" +
                                   ");");
+
+            // Migrations
+            MigrateLocation();
+            MigrateRealmlist();
+        }
+
+        private void MigrateLocation()
+        {
+            dynamic columns = _dbConnection.Query("PRAGMA table_info(Location);");
+            foreach (var column in columns)
+            {
+                if (column.name == "Index") return;
+            }
+
+            _dbConnection.Execute("ALTER TABLE [Location] ADD COLUMN [Index] INTEGER NOT NULL DEFAULT 0");
+        }
+
+        private void MigrateRealmlist()
+        {
+            dynamic columns = _dbConnection.Query("PRAGMA table_info(Realmlist);");
+            foreach (var column in columns)
+            {
+                if (column.name == "Index") return;
+            }
+
+            _dbConnection.Execute("ALTER TABLE [Realmlist] ADD COLUMN [Index] INTEGER NOT NULL DEFAULT 0");
         }
 
         public void InsertLocation(Entities.Location entity)

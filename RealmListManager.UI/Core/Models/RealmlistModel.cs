@@ -86,6 +86,17 @@ namespace RealmListManager.UI.Core.Models
             }
         }
 
+        public int Index
+        {
+            get => DataModel.Index;
+            set
+            {
+                if (DataModel.Index == value) return;
+                DataModel.Index = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         #endregion
 
         public RealmlistModel Clone()
@@ -94,8 +105,9 @@ namespace RealmListManager.UI.Core.Models
             {
                 Id = DataModel.Id,
                 Name = DataModel.Name,
+                Url = DataModel.Url,
                 Image = DataModel.Image,
-                Url = DataModel.Url
+                Index = DataModel.Index
             };
 
             return new RealmlistModel(clone);

@@ -25,8 +25,7 @@ namespace RealmListManager.UI
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            var connectionProvider = new DbConnectionProvider();
-            _dbConnection = connectionProvider.GetConnection();
+            _dbConnection = DbConnectionProvider.GetConnection();
 
             var container = new Container(_ =>
             {

@@ -102,6 +102,17 @@ namespace RealmListManager.UI.Core.Models
             }
         }
 
+        public int Index
+        {
+            get => DataModel.Index;
+            set
+            {
+                if (DataModel.Index == value) return;
+                DataModel.Index = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public ObservableCollection<RealmlistModel> Realmlists
         {
             get => _realmlists;
@@ -125,6 +136,7 @@ namespace RealmListManager.UI.Core.Models
                 Name = DataModel.Name,
                 Path = DataModel.Path,
                 Image = DataModel.Image,
+                Index = DataModel.Index,
                 Realmlists = new List<Realmlist>()
             };
 
