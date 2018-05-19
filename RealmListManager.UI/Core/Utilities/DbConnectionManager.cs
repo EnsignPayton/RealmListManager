@@ -35,6 +35,18 @@ namespace RealmListManager.UI.Core.Utilities
                                   ");");
         }
 
+        public void UpdateLocation(Entities.Location entity)
+        {
+            _dbConnection.Execute("UPDATE Location SET Name = @Name, Path = @Path, Image = @Image WHERE Id = @Id",
+                new
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    Path = entity.Path,
+                    Image = entity.Image
+                });
+        }
+
         public void InsertLocation(Entities.Location entity)
         {
             _dbConnection.Execute("INSERT INTO Location VALUES(@Id, @Name, @Path, @Image)",

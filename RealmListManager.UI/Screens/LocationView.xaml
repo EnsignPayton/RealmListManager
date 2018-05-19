@@ -56,6 +56,14 @@
                         <Rectangle Fill="{StaticResource CrossBrush}" Width="16" Height="16"/>
                     </Button>
 
+                    <Button x:Name="EditLocation"
+                            Height="36"
+                            Width="36"
+                            Margin="0,0,8,0"
+                            Background="{StaticResource PrimaryBrush}">
+                        <Rectangle Fill="{StaticResource PencilBrush}" Width="16" Height="16"/>
+                    </Button>
+
                     <Button x:Name="Play"
                             Content="Play"
                             Height="36"
