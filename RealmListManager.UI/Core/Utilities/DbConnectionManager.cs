@@ -21,7 +21,8 @@ namespace RealmListManager.UI.Core.Utilities
                                   "[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY," +
                                   "[Name] VARCHAR NOT NULL," +
                                   "[Path] VARCHAR NOT NULL," +
-                                  "[Image] BLOB NULL" +
+                                  "[Image] BLOB NULL," +
+                                  "[Index] INTEGER NOT NULL DEFAULT 0" +
                                   ");");
 
             // Realmlist
@@ -30,33 +31,62 @@ namespace RealmListManager.UI.Core.Utilities
                                   "[Name] VARCHAR NOT NULL," +
                                   "[Url] VARCHAR NOT NULL," +
                                   "[Image] BLOB NULL," +
+                                  "[Index] INTEGER NOT NULL DEFAULT 0," +
                                   "[LocationId] UNIQUEIDENTIFIER NOT NULL," +
                                   "FOREIGN KEY ([LocationId]) REFERENCES [Location] ([Id]) ON DELETE NO ACTION ON UPDATE NO ACTION" +
                                   ");");
+
+            // Migrations
+            MigrateLocation();
+            MigrateRealmlist();
+        }
+
+        private void MigrateLocation()
+        {
+            dynamic columns = _dbConnection.Query("PRAGMA table_info(Location);");
+            foreach (var column in columns)
+            {
+                if (column.name == "Index") return;
+            }
+
+            _dbConnection.Execute("ALTER TABLE [Location] ADD COLUMN [Index] INTEGER NOT NULL DEFAULT 0");
+        }
+
+        private void MigrateRealmlist()
+        {
+            dynamic columns = _dbConnection.Query("PRAGMA table_info(Realmlist);");
+            foreach (var column in columns)
+            {
+                if (column.name == "Index") return;
+            }
+
+            _dbConnection.Execute("ALTER TABLE [Realmlist] ADD COLUMN [Index] INTEGER NOT NULL DEFAULT 0");
         }
 
         public void InsertLocation(Entities.Location entity)
         {
-            _dbConnection.Execute("INSERT INTO Location VALUES(@Id, @Name, @Path, @Image)",
+            _dbConnection.Execute("INSERT INTO Location VALUES(@Id, @Name, @Path, @Image, @Index)",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Path = entity.Path,
-                    Image = entity.Image
+                    Image = entity.Image,
+                    Index = entity.Index
                 });
         }
 
         public void InsertRealmlist(Entities.Realmlist entity, Guid locationId)
         {
             _dbConnection.Execute(
-                "INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @LocationId)",
+                "INSERT INTO Realmlist VALUES(@Id, @Name, @Url, @Image, @Index, @LocationId)",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Url = entity.Url,
                     Image = entity.Image,
+                    Index = entity.Index,
                     LocationId = locationId
                 });
         }
@@ -64,26 +94,28 @@ namespace RealmListManager.UI.Core.Utilities
         public void UpdateLocation(Entities.Location entity)
         {
             _dbConnection.Execute(
-                "UPDATE Location SET Name = @Name, Path = @Path, Image = @Image WHERE Id = @Id",
+                "UPDATE Location SET Name = @Name, Path = @Path, Image = @Image, [Index] = @Index WHERE Id = @Id",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Path = entity.Path,
-                    Image = entity.Image
+                    Image = entity.Image,
+                    Index = entity.Index
                 });
         }
 
         public void UpdateRealmlist(Entities.Realmlist entity, Guid locationId)
         {
             _dbConnection.Execute(
-                "UPDATE Realmlist SET Name = @Name, Url = @Url, Image = @Image, LocationId = @LocationId WHERE Id = @Id",
+                "UPDATE Realmlist SET Name = @Name, Url = @Url, Image = @Image, [Index] = @Index, LocationId = @LocationId WHERE Id = @Id",
                 new
                 {
                     Id = entity.Id,
                     Name = entity.Name,
                     Url = entity.Url,
                     Image = entity.Image,
+                    Index = entity.Index,
                     LocationId = locationId
                 });
         }

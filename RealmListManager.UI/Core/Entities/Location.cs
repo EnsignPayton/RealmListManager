@@ -9,6 +9,7 @@ namespace RealmListManager.UI.Core.Entities
         public string Name { get; set; }
         public string Path { get; set; }
         public byte[] Image { get; set; }
+        public int Index { get; set; }
         public IList<Realmlist> Realmlists { get; set; }
     }
 }

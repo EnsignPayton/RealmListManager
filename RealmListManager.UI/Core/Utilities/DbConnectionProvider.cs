@@ -5,7 +5,7 @@ using System.IO;
 
 namespace RealmListManager.UI.Core.Utilities
 {
-    public class DbConnectionProvider
+    public static class DbConnectionProvider
     {
         /// <summary>
         /// Default Database Filename
@@ -16,7 +16,7 @@ namespace RealmListManager.UI.Core.Utilities
         /// Get a Database Connection
         /// </summary>
         /// <returns>Database Connection</returns>
-        public IDbConnection GetConnection()
+        public static IDbConnection GetConnection()
         {
             var file = Path.Combine(Environment.CurrentDirectory, FileName);
             var connection = new SQLiteConnection($"Data Source={file}");
