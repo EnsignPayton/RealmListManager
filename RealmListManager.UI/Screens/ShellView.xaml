@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:core="clr-namespace:RealmListManager.UI.Core"
         xmlns:screens="clr-namespace:RealmListManager.UI.Screens"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance screens:ShellViewModel}"
-        Title="Realmlist Manager"
+        Title="{StaticResource ApplicationTitle}"
         MinWidth="640" MinHeight="480"
         Width="800" Height="600"
         SnapsToDevicePixels="True">
@@ -53,6 +55,9 @@
                      ItemsSource="{Binding Locations}"
                      SelectedItem="{Binding SelectedLocation}"
                      ItemContainerStyle="{StaticResource LocationListItem}"
+                     AllowDrop="True"
+                     dd:DragDrop.IsDragSource="True"
+                     dd:DragDrop.IsDropTarget="True"
                      Focusable="False">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

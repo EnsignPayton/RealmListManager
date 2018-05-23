@@ -81,9 +81,9 @@ namespace RealmListManager.UI.Screens
         public void AddRealmlist()
         {
             var dialog = _windowConductor.ShowDialog<NewRealmlistViewModel>();
-
             if (dialog.Result == false) return;
             Location.Realmlists.Add(dialog.Realmlist);
+            dialog.Realmlist.Index = Location.Realmlists.IndexOf(dialog.Realmlist);
 
             _connectionManager.InsertRealmlist(dialog.Realmlist.DataModel, Location.DataModel.Id);
         }
@@ -100,8 +100,14 @@ namespace RealmListManager.UI.Screens
 
             // Delete from the database
             _connectionManager.DeleteRealmlist(realmlist.DataModel.Id);
-
             Location.Realmlists.Remove(realmlist);
+
+            // Update indices
+            for (int i = 0; i < Location.Realmlists.Count; i++)
+            {
+                Location.Realmlists[i].Index = i;
+                _connectionManager.UpdateRealmlist(Location.Realmlists[i].DataModel, Location.DataModel.Id);
+            }
         }
 
         public void EditRealmlist(RealmlistModel realmlist)
@@ -111,7 +117,7 @@ namespace RealmListManager.UI.Screens
 
             Location.Realmlists.Clear();
             _connectionManager.UpdateRealmlist(dialog.Realmlist.DataModel, Location.DataModel.Id);
-            var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id);
+            var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id).OrderBy(x => x.Index);
             foreach (var savedRealmlist in savedRealmlists)
             {
                 if (Location.Realmlists.All(x => x.DataModel.Id != savedRealmlist.Id))
@@ -134,13 +140,25 @@ namespace RealmListManager.UI.Screens
 
         protected override void OnInitialize()
         {
-            var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id);
+            var savedRealmlists = _connectionManager.QueryRealmlistsByLocation(Location.DataModel.Id).OrderBy(x => x.Index);
             foreach (var realmlist in savedRealmlists)
             {
                 if (Location.Realmlists.All(x => x.DataModel.Id != realmlist.Id))
                     Location.Realmlists.Add(new RealmlistModel(realmlist));
             }
             base.OnInitialize();
+        }
+
+        protected override void OnDeactivate(bool close)
+        {
+            // Update indices to reflect drag/drop
+            for (int i = 0; i < Location.Realmlists.Count; i++)
+            {
+                Location.Realmlists[i].Index = i;
+                _connectionManager.UpdateRealmlist(Location.Realmlists[i].DataModel, Location.DataModel.Id);
+            }
+
+            base.OnDeactivate(close);
         }
 
         #endregion

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:screens="clr-namespace:RealmListManager.UI.Screens"
+             xmlns:dd="urn:gong-wpf-dragdrop"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance screens:LocationViewModel}"
@@ -103,13 +104,18 @@
         </Grid>
 
         <!-- Realmlist List -->
-        <ItemsControl Grid.Row="2"
-                      ItemsSource="{Binding Location.Realmlists}"
-                      ScrollViewer.CanContentScroll="False"
-                      Padding="16,0,0,16"
-                      Focusable="False"
-                      Style="{StaticResource ScrollSaveItemsControl}">
-            <ItemsControl.ItemTemplate>
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding Location.Realmlists}"
+                 ScrollViewer.CanContentScroll="False"
+                 Padding="16,0,0,16"
+                 AllowDrop="True"
+                 dd:DragDrop.IsDragSource="True"
+                 dd:DragDrop.IsDropTarget="True"
+                 Focusable="False"
+                 BorderThickness="0"
+                 Style="{StaticResource ScrollSaveItemsControl}"
+                 ItemContainerStyle="{StaticResource NonSelectableListBoxItem}">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="8">
                         <Grid.ColumnDefinitions>
@@ -157,7 +163,7 @@
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

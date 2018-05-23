@@ -42,6 +42,7 @@
     </DrawingBrush>
 
     <!-- String Resources -->
+    <system:String x:Key="ApplicationTitle">Realmlist Manager</system:String>
     <system:String x:Key="ToolTip_AddLocation">Add a new World of Warcraft installation.</system:String>
     <system:String x:Key="ToolTip_AddRealmlist">Add a new realmlist option to this installation.</system:String>
     <system:String x:Key="ToolTip_PlayLocation">Start this World of Warcraft installation with the currently configured realmlist.</system:String>

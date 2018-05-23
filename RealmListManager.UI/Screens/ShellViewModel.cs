@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -143,11 +144,11 @@ namespace RealmListManager.UI.Screens
         {
             // Delete from the database
             _connectionManager.DeleteLocation(location.DataModel.Id);
+            Locations.Remove(location);
 
             // Update indices
             for (int i = 0; i < Locations.Count; i++)
             {
-                if (Locations[i].Index == i) continue;
                 Locations[i].Index = i;
                 _connectionManager.UpdateLocation(Locations[i].DataModel);
             }
@@ -162,7 +163,6 @@ namespace RealmListManager.UI.Screens
                 Show<FirstTimeViewModel>();
             }
 
-            Locations.Remove(location);
         }
 
         #endregion
@@ -178,10 +178,9 @@ namespace RealmListManager.UI.Screens
 
         protected override void OnDeactivate(bool close)
         {
-            // Update indices in the case of an old DB (All indices 0)
+            // Update indices to reflect drag/drop
             for (int i = 0; i < Locations.Count; i++)
             {
-                if (Locations[i].Index == i) continue;
                 Locations[i].Index = i;
                 _connectionManager.UpdateLocation(Locations[i].DataModel);
             }
