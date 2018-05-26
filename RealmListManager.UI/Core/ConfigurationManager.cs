@@ -62,7 +62,7 @@ namespace RealmListManager.UI.Core
                     _appSettings = serializer.Deserialize(streamReader) as AppSettings;
                 }
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
                 _appSettings = new AppSettings();
             }

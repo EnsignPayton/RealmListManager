@@ -58,7 +58,6 @@ namespace RealmListManager.UI.Screens
             get => _selectedLocation;
             set
             {
-                if (_selectedLocation == value) return;
                 _selectedLocation = value;
 
                 if (_selectedLocation != null)
@@ -162,7 +161,11 @@ namespace RealmListManager.UI.Screens
                 SelectedLocation = null;
                 Show<FirstTimeViewModel>();
             }
+        }
 
+        public void Options()
+        {
+            Show<OptionsViewModel>();
         }
 
         #endregion

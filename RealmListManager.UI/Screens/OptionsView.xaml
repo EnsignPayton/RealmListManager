@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="RealmListManager.UI.Screens.OptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:screens="clr-namespace:RealmListManager.UI.Screens"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance screens:OptionsViewModel}"
+             d:DesignHeight="560" d:DesignWidth="600">
+    <UserControl.Resources>
+        <Style x:Key="OptionsCheckBox"
+               TargetType="CheckBox"
+               BasedOn="{StaticResource {x:Type CheckBox}}">
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+        <Style x:Key="OptionsTextBlock"
+               TargetType="TextBlock"
+               BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="Margin" Value="4,2,0,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{StaticResource SecondaryBrush}"
+                Padding="24,18">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="2" Direction="270" Opacity="0.5"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="{StaticResource Label_Options}"
+                           FontSize="24"/>
+                <!-- TODO: Back Button Here -->
+            </Grid>
+        </Border>
+        <StackPanel Grid.Row="1"
+                    Margin="16">
+            <CheckBox IsChecked="{Binding ConfigurationManager.RestoreRealmlist}"
+                      Style="{StaticResource OptionsCheckBox}"
+                      ToolTip="{StaticResource ToolTip_RestoreRealmlist}">
+                <TextBlock Style="{StaticResource OptionsTextBlock}"
+                           Text="{StaticResource Label_RestoreRealmlist}"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding ConfigurationManager.MinimizeToTray}"
+                      Style="{StaticResource OptionsCheckBox}"
+                      ToolTip="{StaticResource ToolTip_MinimizeToTray}">
+                <TextBlock Style="{StaticResource OptionsTextBlock}"
+                           Text="{StaticResource Label_MinimizeToTray}"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding ConfigurationManager.CloseToTray}"
+                      Style="{StaticResource OptionsCheckBox}"
+                      ToolTip="{StaticResource ToolTip_CloseToTray}">
+                <TextBlock Style="{StaticResource OptionsTextBlock}"
+                           Text="{StaticResource Label_CloseToTray}"/>
+            </CheckBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

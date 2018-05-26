@@ -47,7 +47,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
- 
+
     <Style x:Key="DialogButton"
            TargetType="Button"
            BasedOn="{StaticResource {x:Type Button}}">
@@ -220,8 +220,7 @@
     </Style>
 
     <!-- TextBlock Styles -->
-    <Style TargetType="TextBlock"
-           BasedOn="{StaticResource {x:Type TextBlock}}">
+    <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Verdana"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="TextTrimming" Value="CharacterEllipsis"/>

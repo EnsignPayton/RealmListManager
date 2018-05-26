@@ -147,6 +147,12 @@
     </Compile>
     <Compile Include="Core\Models\LocationModel.cs" />
     <Compile Include="Core\Models\RealmlistModel.cs" />
+    <Compile Include="Screens\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OptionsViewModel.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\OptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
