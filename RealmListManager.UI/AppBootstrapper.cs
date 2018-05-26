@@ -17,6 +17,7 @@ namespace RealmListManager.UI
     {
         private IServiceLocator _serviceLocator;
         private IDbConnection _dbConnection;
+        private IConfigurationManager _configurationManager;
 
         public AppBootstrapper()
         {
@@ -45,7 +46,17 @@ namespace RealmListManager.UI
             var connectionManager = _serviceLocator.GetInstance<DbConnectionManager>();
             connectionManager.CreateTables();
 
+            _configurationManager = _serviceLocator.GetInstance<IConfigurationManager>();
+            _configurationManager.Load();
+
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            _configurationManager.Save();
+
+            base.OnExit(sender, e);
         }
 
         protected override object GetInstance(Type service, string key)

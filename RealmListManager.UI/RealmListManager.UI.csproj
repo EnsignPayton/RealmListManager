@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\AppSettings.cs" />
     <Compile Include="Core\ConfigurationManager.cs" />
     <Compile Include="Core\Converters\NegatedBooleanConverter.cs" />
     <Compile Include="Core\Entities\Location.cs" />
