@@ -93,7 +93,7 @@
                         ToolTip="{StaticResource ToolTip_AddLocation}"
                         Margin="20"
                         Height="40"/>
-                <Button x:Name="Options"
+                <Button x:Name="ShowOptions"
                         Grid.Column="1"
                         ToolTip="{StaticResource ToolTip_Options}"
                         Height="40"

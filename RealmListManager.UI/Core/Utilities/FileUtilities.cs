@@ -85,31 +85,6 @@ namespace RealmListManager.UI.Core.Utilities
             File.WriteAllLines(realmlistWtf, realmlistData);
         }
 
-        /// <summary>
-        /// Starts an instance of the current location. If a realmlist is specified, uses it.
-        /// </summary>
-        /// <param name="path">Location Path</param>
-        /// <param name="realmlistUrl">Realmlist URL</param>
-        public static bool StartLocation(string path, string realmlistUrl = null)
-        {
-            if (realmlistUrl != null)
-            {
-                BackupRealmlist(path);
-                ReplaceRealmlist(path, realmlistUrl);
-            }
-
-            try
-            {
-                Process.Start(Path.Combine(path, "Wow.exe"));
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private static string GetRealmlistFile(string path)
         {
             // Prior to 3.0.2, realmlist.wtf should be located in the root directory

@@ -163,7 +163,7 @@ namespace RealmListManager.UI.Screens
             }
         }
 
-        public void Options()
+        public void ShowOptions()
         {
             Show<OptionsViewModel>();
         }

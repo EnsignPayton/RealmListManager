@@ -16,6 +16,7 @@ namespace RealmListManager.UI.Screens
         private readonly IWindowConductor _windowConductor;
         private readonly DbConnectionManager _connectionManager;
         private readonly IEventAggregator _eventAggregator;
+        private readonly FileManager _fileManager;
         private LocationModel _location;
 
         #endregion
@@ -24,12 +25,14 @@ namespace RealmListManager.UI.Screens
 
         public LocationViewModel(IWindowConductor windowConductor,
             DbConnectionManager connectionManager,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            FileManager fileManager)
         {
             _windowConductor = windowConductor;
             _connectionManager = connectionManager;
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+            _fileManager = fileManager;
         }
 
         #endregion
@@ -131,7 +134,7 @@ namespace RealmListManager.UI.Screens
         /// <param name="realmlist">Optional realmlist to substitute.</param>
         public void Play(RealmlistModel realmlist = null)
         {
-            FileUtilities.StartLocation(Location.Path, realmlist?.Url);
+            _fileManager.StartLocation(Location.Path, realmlist?.Url);
         }
 
         #endregion
