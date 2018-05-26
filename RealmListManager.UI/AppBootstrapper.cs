@@ -36,6 +36,7 @@ namespace RealmListManager.UI
                 _.For<IWindowManager>().Singleton().Use<WindowManager>();
                 _.For<IWindowConductor>().Singleton().Use<ShellViewModel>();
                 _.For<IEventAggregator>().Singleton().Use<EventAggregator>();
+                _.For<IConfigurationManager>().Singleton().Use<ConfigurationManager>();
                 _.For<IDbConnection>().Use(_dbConnection);
             });
 

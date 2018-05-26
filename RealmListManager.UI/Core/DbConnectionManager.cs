@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Dapper;
 
-namespace RealmListManager.UI.Core.Utilities
+namespace RealmListManager.UI.Core
 {
     public class DbConnectionManager
     {
