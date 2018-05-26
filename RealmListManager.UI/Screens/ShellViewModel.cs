@@ -12,7 +12,8 @@ using RealmListManager.UI.Dialogs;
 
 namespace RealmListManager.UI.Screens
 {
-    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IWindowConductor, IHandle<LocationChanged>
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive,
+        IWindowConductor, IHandle<LocationChanged>, IHandle<OptionsClosed>
     {
         #region Fields
 
@@ -204,6 +205,16 @@ namespace RealmListManager.UI.Screens
                 Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
                 SelectedLocation = Locations.FirstOrDefault(x => x.DataModel.Id == selectedId);
             }
+        }
+
+        public void Handle(OptionsClosed message)
+        {
+            if (SelectedLocation != null)
+                SelectedLocation = SelectedLocation;
+            else if (Locations.Any())
+                SelectedLocation = Locations.First();
+            else
+                Show<FirstTimeViewModel>();
         }
 
         #endregion

@@ -59,6 +59,7 @@
     <system:String x:Key="ToolTip_EditLocation">Edit this World of Warcraft installation.</system:String>
     <system:String x:Key="ToolTip_EditRealmlist">Edit this realmlist.</system:String>
     <system:String x:Key="ToolTip_Options">Options</system:String>
+    <system:String x:Key="ToolTip_GoBack">Go Back</system:String>
     <system:String x:Key="ToolTip_RestoreRealmlist">Restore the backup realmlist when the game is closed.</system:String>
     <system:String x:Key="ToolTip_MinimizeToTray">Minimize button sends the application to the system tray.</system:String>
     <system:String x:Key="ToolTip_CloseToTray">Close button sends the application to the system tray.</system:String>

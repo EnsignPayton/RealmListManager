@@ -41,7 +41,14 @@
                 <TextBlock Grid.Column="0"
                            Text="{StaticResource Label_Options}"
                            FontSize="24"/>
-                <!-- TODO: Back Button Here -->
+                <Button x:Name="GoBack"
+                        Grid.Column="1"
+                        Height="36"
+                        Width="36"
+                        ToolTip="{StaticResource ToolTip_GoBack}"
+                        Background="{StaticResource PrimaryBrush}">
+                    <Rectangle Fill="{StaticResource BackBrush}" Height="16" Width="16"/>
+                </Button>
             </Grid>
         </Border>
         <StackPanel Grid.Row="1"

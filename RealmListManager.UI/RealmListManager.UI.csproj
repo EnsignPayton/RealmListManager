@@ -107,6 +107,7 @@
     <Compile Include="Core\Entities\Location.cs" />
     <Compile Include="Core\Entities\Realmlist.cs" />
     <Compile Include="Core\Events\LocationChanged.cs" />
+    <Compile Include="Core\Events\OptionsClosed.cs" />
     <Compile Include="Core\FileManager.cs" />
     <Compile Include="Core\IConfigurationManager.cs" />
     <Compile Include="Core\IWindowConductor.cs" />
