@@ -26,7 +26,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
         <Border Grid.Row="0"
                 Background="{StaticResource SecondaryBrush}"
                 Padding="24,18">
@@ -51,6 +50,7 @@
                 </Button>
             </Grid>
         </Border>
+
         <StackPanel Grid.Row="1"
                     Margin="16">
             <CheckBox IsChecked="{Binding ConfigurationManager.RestoreRealmlist}"

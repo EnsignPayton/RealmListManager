@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -7,7 +6,6 @@ using Caliburn.Micro;
 using RealmListManager.UI.Core;
 using RealmListManager.UI.Core.Events;
 using RealmListManager.UI.Core.Models;
-using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
 
 namespace RealmListManager.UI.Screens
