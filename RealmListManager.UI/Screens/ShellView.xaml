@@ -11,7 +11,8 @@
         Title="{StaticResource ApplicationTitle}"
         MinWidth="640" MinHeight="480"
         Width="800" Height="600"
-        SnapsToDevicePixels="True">
+        SnapsToDevicePixels="True"
+        StateChanged="ShellView_OnStateChanged">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="LocationListItem"
@@ -109,6 +110,8 @@
                         Panel.ZIndex="98"
                         Margin="0"/>
 
-        <tb:TaskbarIcon ToolTipText="Taskbar Icon"/>
+        <tb:TaskbarIcon x:Name="TaskbarIcon"
+                        ToolTipText="Taskbar Icon"
+                        Visibility="Collapsed"/>
     </Grid>
 </Window>

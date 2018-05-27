@@ -17,6 +17,7 @@ namespace RealmListManager.UI.Screens
 
         private readonly IWindowManager _windowManager;
         private readonly DbConnectionManager _connectionManager;
+        private readonly IConfigurationManager _configurationManager;
 
         private ObservableCollection<LocationModel> _locations;
         private LocationModel _selectedLocation;
@@ -27,10 +28,12 @@ namespace RealmListManager.UI.Screens
 
         public ShellViewModel(IWindowManager windowManager,
             DbConnectionManager connectionManager,
+            IConfigurationManager configurationManager,
             IEventAggregator eventAggregator)
         {
             _windowManager = windowManager;
             _connectionManager = connectionManager;
+            _configurationManager = configurationManager;
             eventAggregator.Subscribe(this);
 
             // Populate locations from database
@@ -65,6 +68,8 @@ namespace RealmListManager.UI.Screens
                 NotifyOfPropertyChange();
             }
         }
+
+        public bool MinimizeToTray => _configurationManager.MinimizeToTray;
 
         #endregion
 

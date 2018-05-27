@@ -65,12 +65,6 @@
                 <TextBlock Style="{StaticResource OptionsTextBlock}"
                            Text="{StaticResource Label_MinimizeToTray}"/>
             </CheckBox>
-            <CheckBox IsChecked="{Binding ConfigurationManager.CloseToTray}"
-                      Style="{StaticResource OptionsCheckBox}"
-                      ToolTip="{StaticResource ToolTip_CloseToTray}">
-                <TextBlock Style="{StaticResource OptionsTextBlock}"
-                           Text="{StaticResource Label_CloseToTray}"/>
-            </CheckBox>
         </StackPanel>
     </Grid>
 </UserControl>
