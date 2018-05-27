@@ -6,6 +6,7 @@
         xmlns:screens="clr-namespace:RealmListManager.UI.Screens"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:dialogs="clr-namespace:RealmListManager.UI.Dialogs"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance screens:ShellViewModel}"
         Title="{StaticResource ApplicationTitle}"
@@ -112,6 +113,10 @@
 
         <tb:TaskbarIcon x:Name="TaskbarIcon"
                         ToolTipText="Taskbar Icon"
-                        Visibility="Collapsed"/>
+                        Visibility="Collapsed">
+            <tb:TaskbarIcon.TrayToolTip>
+                <dialogs:TaskbarIconView/>
+            </tb:TaskbarIcon.TrayToolTip>
+        </tb:TaskbarIcon>
     </Grid>
 </Window>

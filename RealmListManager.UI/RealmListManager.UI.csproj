@@ -138,6 +138,9 @@
     <Compile Include="Dialogs\NewRealmlistViewModel.cs">
       <DependentUpon>NewRealmlistView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\TaskbarIconView.xaml.cs">
+      <DependentUpon>TaskbarIconView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\FirstTimeView.xaml.cs">
       <DependentUpon>FirstTimeView.xaml</DependentUpon>
     </Compile>
@@ -203,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\NewRealmlistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\TaskbarIconView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
