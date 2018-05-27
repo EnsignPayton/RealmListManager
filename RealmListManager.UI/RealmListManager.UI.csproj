@@ -101,13 +101,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\AppSettings.cs" />
+    <Compile Include="Core\ConfigurationManager.cs" />
     <Compile Include="Core\Converters\NegatedBooleanConverter.cs" />
     <Compile Include="Core\Entities\Location.cs" />
     <Compile Include="Core\Entities\Realmlist.cs" />
     <Compile Include="Core\Events\LocationChanged.cs" />
+    <Compile Include="Core\Events\OptionsClosed.cs" />
+    <Compile Include="Core\FileManager.cs" />
+    <Compile Include="Core\IConfigurationManager.cs" />
     <Compile Include="Core\IWindowConductor.cs" />
     <Compile Include="Core\ListBoxItemHelper.cs" />
-    <Compile Include="Core\Utilities\DbConnectionManager.cs" />
+    <Compile Include="Core\DbConnectionManager.cs" />
     <Compile Include="Core\Utilities\DbConnectionProvider.cs" />
     <Compile Include="Core\Utilities\ImageUtilities.cs" />
     <Compile Include="Core\Utilities\FileUtilities.cs" />
@@ -144,6 +149,12 @@
     </Compile>
     <Compile Include="Core\Models\LocationModel.cs" />
     <Compile Include="Core\Models\RealmlistModel.cs" />
+    <Compile Include="Screens\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\OptionsViewModel.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Screens\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -197,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Screens\LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Screens\OptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
