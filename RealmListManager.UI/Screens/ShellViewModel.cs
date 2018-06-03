@@ -143,7 +143,16 @@ namespace RealmListManager.UI.Screens
         /// <param name="location">Location</param>
         public void PlayLocation(LocationModel location)
         {
-            _fileManager.StartLocation(location.Path);
+            try
+            {
+                _fileManager.StartLocation(location.Path);
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                ShowMessageBox(
+                    $"Error occured while starting location: {Environment.NewLine}Wow.exe could not be started",
+                    "Unexpected Error", MessageBoxButton.OK);
+            }
         }
 
         /// <summary>
