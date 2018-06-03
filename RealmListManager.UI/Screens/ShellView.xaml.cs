@@ -37,7 +37,7 @@ namespace RealmListManager.UI.Screens
             if (!(sender is FrameworkElement element)) return;
             if (!(element.DataContext is LocationModel location)) return;
 
-            vm.DeleteLocation(location);
+            vm.ConfirmDeleteLocation(location);
         }
     }
 }

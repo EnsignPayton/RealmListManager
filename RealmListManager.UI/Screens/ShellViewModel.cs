@@ -200,6 +200,15 @@ namespace RealmListManager.UI.Screens
             }
         }
 
+        public void ConfirmDeleteLocation(LocationModel location)
+        {
+            var result = ShowMessageBox("This location will be permanently deleted. Continue?",
+                "Delete Location");
+            if (result != MessageBoxResult.OK) return;
+
+            DeleteLocation(location);
+        }
+
         /// <summary>
         /// Show the options screen.
         /// </summary>
