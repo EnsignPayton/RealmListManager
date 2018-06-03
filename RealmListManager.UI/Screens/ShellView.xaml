@@ -36,7 +36,7 @@
                      dd:DragDrop.IsDragSource="True"
                      dd:DragDrop.IsDropTarget="True"
                      Focusable="False">
-                <ItemsControl.ItemContainerStyle>
+                <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem"
                            BasedOn="{StaticResource {x:Type ListBoxItem}}">
                         <Setter Property="ContextMenu">
@@ -78,8 +78,8 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
-                </ItemsControl.ItemContainerStyle>
-                <ItemsControl.ItemTemplate>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="8">
                             <Grid.ColumnDefinitions>
@@ -106,7 +106,7 @@
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
             <Grid Grid.Row="1">

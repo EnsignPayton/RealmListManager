@@ -113,8 +113,45 @@
                  dd:DragDrop.IsDropTarget="True"
                  Focusable="False"
                  BorderThickness="0"
-                 Style="{StaticResource ScrollSaveItemsControl}"
-                 ItemContainerStyle="{StaticResource NonSelectableListBoxItem}">
+                 Style="{StaticResource ScrollSaveItemsControl}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem"
+                       BasedOn="{StaticResource NonSelectableListBoxItem}">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="{StaticResource Label_Play}"
+                                          ToolTip="{StaticResource ToolTip_PlayRealmlist}">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem"
+                                               BasedOn="{StaticResource {x:Type MenuItem}}">
+                                            <EventSetter Event="Click" Handler="Play_OnClick"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
+                                <MenuItem Header="{StaticResource Label_Edit}"
+                                          ToolTip="{StaticResource ToolTip_EditRealmlist}">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem"
+                                               BasedOn="{StaticResource {x:Type MenuItem}}">
+                                            <EventSetter Event="Click" Handler="Edit_OnClick"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
+                                <MenuItem Header="{StaticResource Label_Delete}"
+                                          ToolTip="{StaticResource ToolTip_DeleteRealmlist}">
+                                    <MenuItem.Style>
+                                        <Style TargetType="MenuItem"
+                                               BasedOn="{StaticResource {x:Type MenuItem}}">
+                                            <EventSetter Event="Click" Handler="Delete_OnClick"/>
+                                        </Style>
+                                    </MenuItem.Style>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="8">
