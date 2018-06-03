@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -7,7 +6,6 @@ using Caliburn.Micro;
 using RealmListManager.UI.Core;
 using RealmListManager.UI.Core.Events;
 using RealmListManager.UI.Core.Models;
-using RealmListManager.UI.Core.Utilities;
 using RealmListManager.UI.Dialogs;
 
 namespace RealmListManager.UI.Screens
@@ -19,6 +17,7 @@ namespace RealmListManager.UI.Screens
 
         private readonly IWindowManager _windowManager;
         private readonly DbConnectionManager _connectionManager;
+        private readonly FileManager _fileManager;
 
         private ObservableCollection<LocationModel> _locations;
         private LocationModel _selectedLocation;
@@ -29,10 +28,12 @@ namespace RealmListManager.UI.Screens
 
         public ShellViewModel(IWindowManager windowManager,
             DbConnectionManager connectionManager,
+            FileManager fileManager,
             IEventAggregator eventAggregator)
         {
             _windowManager = windowManager;
             _connectionManager = connectionManager;
+            _fileManager = fileManager;
             eventAggregator.Subscribe(this);
 
             // Populate locations from database
@@ -137,6 +138,41 @@ namespace RealmListManager.UI.Screens
         }
 
         /// <summary>
+        /// Starts a location
+        /// </summary>
+        /// <param name="location">Location</param>
+        public void PlayLocation(LocationModel location)
+        {
+            try
+            {
+                _fileManager.StartLocation(location.Path);
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                ShowMessageBox(
+                    $"Error occured while starting location: {Environment.NewLine}Wow.exe could not be started",
+                    "Unexpected Error", MessageBoxButton.OK);
+            }
+        }
+
+        /// <summary>
+        /// Edits a location
+        /// </summary>
+        /// <param name="location">Location</param>
+        public void EditLocation(LocationModel location)
+        {
+            var dialog = ShowDialog<NewLocationViewModel>(vm => vm.Location = location.Clone());
+            if (dialog.Result == false) return;
+
+            _connectionManager.UpdateLocation(dialog.Location.DataModel);
+
+            var selectedId = dialog.Location.DataModel.Id;
+            var savedLocations = _connectionManager.QueryLocations().OrderBy(x => x.Index);
+            Locations = new ObservableCollection<LocationModel>(savedLocations.Select(x => new LocationModel(x)));
+            SelectedLocation = Locations.FirstOrDefault(x => x.DataModel.Id == selectedId);
+        }
+
+        /// <summary>
         /// Deletes a location and cleans up the UI.
         /// </summary>
         /// <param name="location">Location</param>
@@ -153,7 +189,7 @@ namespace RealmListManager.UI.Screens
                 _connectionManager.UpdateLocation(Locations[i].DataModel);
             }
 
-            if (Locations.Count > 1)
+            if (Locations.Count >= 1)
             {
                 SelectedLocation = Locations.First(x => x != location);
             }
@@ -164,6 +200,18 @@ namespace RealmListManager.UI.Screens
             }
         }
 
+        public void ConfirmDeleteLocation(LocationModel location)
+        {
+            var result = ShowMessageBox("This location will be permanently deleted. Continue?",
+                "Delete Location");
+            if (result != MessageBoxResult.OK) return;
+
+            DeleteLocation(location);
+        }
+
+        /// <summary>
+        /// Show the options screen.
+        /// </summary>
         public void ShowOptions()
         {
             Show<OptionsViewModel>();

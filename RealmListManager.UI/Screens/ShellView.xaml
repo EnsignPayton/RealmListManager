@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:core="clr-namespace:RealmListManager.UI.Core"
         xmlns:screens="clr-namespace:RealmListManager.UI.Screens"
         xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
@@ -12,20 +11,6 @@
         MinWidth="640" MinHeight="480"
         Width="800" Height="600"
         SnapsToDevicePixels="True">
-    <Window.Resources>
-        <ResourceDictionary>
-            <Style x:Key="LocationListItem"
-                   TargetType="ListBoxItem"
-                   BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{StaticResource PrimaryBrush700}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ResourceDictionary>
-    </Window.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="240"/>
@@ -47,12 +32,54 @@
             <ListBox Grid.Row="0"
                      ItemsSource="{Binding Locations}"
                      SelectedItem="{Binding SelectedLocation}"
-                     ItemContainerStyle="{StaticResource LocationListItem}"
                      AllowDrop="True"
                      dd:DragDrop.IsDragSource="True"
                      dd:DragDrop.IsDropTarget="True"
                      Focusable="False">
-                <ItemsControl.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="{StaticResource Label_Play}"
+                                              ToolTip="{StaticResource ToolTip_PlayLocation}">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem"
+                                                   BasedOn="{StaticResource {x:Type MenuItem}}">
+                                                <EventSetter Event="Click" Handler="Play_OnClick"/>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
+                                    <MenuItem Header="{StaticResource Label_Edit}"
+                                              ToolTip="{StaticResource ToolTip_EditLocation}">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem"
+                                                   BasedOn="{StaticResource {x:Type MenuItem}}">
+                                                <EventSetter Event="Click" Handler="Edit_OnClick"/>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
+                                    <MenuItem Header="{StaticResource Label_Delete}"
+                                              ToolTip="{StaticResource ToolTip_DeleteLocation}">
+                                        <MenuItem.Style>
+                                            <Style TargetType="MenuItem"
+                                                   BasedOn="{StaticResource {x:Type MenuItem}}">
+                                                <EventSetter Event="Click" Handler="Delete_OnClick"/>
+                                            </Style>
+                                        </MenuItem.Style>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryBrush700}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="8">
                             <Grid.ColumnDefinitions>
@@ -79,7 +106,7 @@
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
             <Grid Grid.Row="1">

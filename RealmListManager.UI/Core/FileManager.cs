@@ -23,7 +23,7 @@ namespace RealmListManager.UI.Core
         /// </summary>
         /// <param name="path">Location Path</param>
         /// <param name="realmlistUrl">Realmlist URL</param>
-        public bool StartLocation(string path, string realmlistUrl = null)
+        public void StartLocation(string path, string realmlistUrl = null)
         {
             _path = path;
 
@@ -33,25 +33,16 @@ namespace RealmListManager.UI.Core
                 ReplaceRealmlist(path, realmlistUrl);
             }
 
-            try
-            {
-                _process = new Process();
-                _process.StartInfo.FileName = Path.Combine(path, "Wow.exe");
+            _process = new Process();
+            _process.StartInfo.FileName = Path.Combine(path, "Wow.exe");
 
-                if (_configurationManager.RestoreRealmlist)
-                {
-                    _process.EnableRaisingEvents = true;
-                    _process.Exited += Process_Exited;
-                }
-
-                _process.Start();
-            }
-            catch
+            if (_configurationManager.RestoreRealmlist)
             {
-                return false;
+                _process.EnableRaisingEvents = true;
+                _process.Exited += Process_Exited;
             }
 
-            return true;
+            _process.Start();
         }
 
         private void Process_Exited(object sender, EventArgs e)

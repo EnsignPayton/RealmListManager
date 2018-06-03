@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using RealmListManager.UI.Core;
 using RealmListManager.UI.Core.Events;
 using RealmListManager.UI.Core.Models;
 using RealmListManager.UI.Dialogs;
+using Action = System.Action;
 
 namespace RealmListManager.UI.Screens
 {
@@ -133,7 +135,28 @@ namespace RealmListManager.UI.Screens
         /// <param name="realmlist">Optional realmlist to substitute.</param>
         public void Play(RealmlistModel realmlist = null)
         {
-            _fileManager.StartLocation(Location.Path, realmlist?.Url);
+            void DisplayError(string msg)
+            {
+                _windowConductor.ShowMessageBox($"Error occured while starting location: {Environment.NewLine}{msg}",
+                    "Unexpected Error", MessageBoxButton.OK);
+            }
+
+            try
+            {
+                _fileManager.StartLocation(Location.Path, realmlist?.Url);
+            }
+            catch (System.IO.DirectoryNotFoundException)
+            {
+                DisplayError("Install location not found.");
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                DisplayError("Realmlist file not found.");
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                DisplayError("Wow.exe could not be started");
+            }
         }
 
         #endregion
