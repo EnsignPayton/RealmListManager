@@ -45,6 +45,9 @@
     <system:String x:Key="ApplicationTitle">Realmlist Manager</system:String>
 
     <system:String x:Key="Label_AddLocation">Add Location</system:String>
+    <system:String x:Key="Label_Play">Play</system:String>
+    <system:String x:Key="Label_Edit">Edit</system:String>
+    <system:String x:Key="Label_Delete">Delete</system:String>
     <system:String x:Key="Label_Options">Options</system:String>
     <system:String x:Key="Label_RestoreRealmlist">Restore Backup Realmlist</system:String>
     <system:String x:Key="Label_MinimizeToTray">Minimize To Tray</system:String>

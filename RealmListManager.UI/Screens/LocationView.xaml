@@ -67,7 +67,7 @@
                     </Button>
 
                     <Button x:Name="Play"
-                            Content="Play"
+                            Content="{StaticResource Label_Play}"
                             Height="36"
                             Padding="12,0"
                             SnapsToDevicePixels="True"
